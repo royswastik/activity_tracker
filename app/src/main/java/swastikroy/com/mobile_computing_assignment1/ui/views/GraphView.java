@@ -105,8 +105,9 @@ public class GraphView extends View {
                     float rat = val / diff;
                     float h = graphheight * rat;
                     canvas.drawRect((i * colwidth) + horstart, (border - h) + graphheight, ((i * colwidth) + horstart) + (colwidth - 1), height - (border - 1), paint);
+
                 }
-            } else {
+            } else {    //This is for line view
                 float datalength = values.length;
                 float colwidth = (width - (2 * border)) / datalength;
                 float halfcol = colwidth / 2;
@@ -116,8 +117,9 @@ public class GraphView extends View {
                     float rat = val / diff;
                     float h = graphheight * rat;
                     if (i > 0)
-                        paint.setColor(Color.GREEN);
-                    paint.setStrokeWidth(2.0f);
+                        paint.setColor(Color.WHITE);
+//                         paint.setColor(Color.GREEN);
+                    paint.setStrokeWidth(10.0f);
 
                     canvas.drawLine(((i - 1) * colwidth) + (horstart + 1) + halfcol, (border - lasth) + graphheight, (i * colwidth) + (horstart + 1) + halfcol, (border - h) + graphheight, paint);
                     lasth = h;
