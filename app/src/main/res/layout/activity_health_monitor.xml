@@ -6,11 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="swastikroy.com.mobile_computing_assignment1.adapters.HealthMonitorActivity">
-    <com.jjoe64.graphview.GraphView
+    <LinearLayout
+        android:id="@+id/graphview_container"
         android:layout_width="match_parent"
-        android:layout_height="200dip"
-        android:id="@+id/graph" />
+        android:layout_height="300dp"
+        android:padding="10dp"
+        android:orientation="vertical">
 
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
