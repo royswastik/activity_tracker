@@ -1,5 +1,7 @@
 package swastikroy.com.mobile_computing_assignment1.util;
 
+import com.jjoe64.graphview.series.DataPoint;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +32,15 @@ public class RandomHealthDataGenerator {
         Float[] random_float_arr = generate_array_of_float(count, max, min);
         List<HealthDatum> healthDataList = new ArrayList<>();
         for(int i = 0; i < random_float_arr.length; i++){
-            healthDataList.add(new HealthDatum(i, random_float_arr[i].doubleValue()));
+            healthDataList.add(new HealthDatum(i/100d, random_float_arr[i].doubleValue()));
+        }
+        return healthDataList;
+    }
+    public static DataPoint[] get_dummy_health_data_list(int count, float max, float min){
+        Float[] random_float_arr = generate_array_of_float(count, max, min);
+        DataPoint[] healthDataList = new DataPoint[count];
+        for(int i = 0; i < random_float_arr.length; i++){
+            healthDataList[i] = new DataPoint(i/100d, random_float_arr[i].doubleValue());
         }
         return healthDataList;
     }

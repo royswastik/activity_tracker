@@ -2,6 +2,7 @@ package swastikroy.com.mobile_computing_assignment1;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setup(){
         this.holder = new ViewHolder(this);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null){
+            actionBar.setDisplayUseLogoEnabled(true);
+            actionBar.setIcon(R.drawable.heart_logo);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
+
         addListeners();
 
     }
