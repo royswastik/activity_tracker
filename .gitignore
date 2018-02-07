@@ -62,3 +62,7 @@ freeline_project_description.json
 /build
 /captures
 .externalNativeBuild
+
+vcs.xml
+gradle.xml
+modules.xml
