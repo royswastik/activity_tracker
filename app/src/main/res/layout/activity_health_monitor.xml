@@ -6,16 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="swastikroy.com.mobile_computing_assignment1.adapters.HealthMonitorActivity">
-    <LinearLayout
-        android:id="@+id/graphview_container"
+    <!--<LinearLayout-->
+        <!--android:id="@+id/graphview_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"-->
+        <!--android:padding="10dp"-->
+        <!--android:background="#000"-->
+        <!--android:orientation="vertical">-->
+
+
+    <!--</LinearLayout>-->
+
+    <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:padding="10dp"
-        android:background="#000"
-        android:orientation="vertical">
-
-
-    </LinearLayout>
+        android:layout_height="200dip"
+        android:id="@+id/graph" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

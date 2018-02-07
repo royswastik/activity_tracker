@@ -10,11 +10,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import swastikroy.com.mobile_computing_assignment1.models.HealthDatum;
-import swastikroy.com.mobile_computing_assignment1.ui.views.GraphView;
 import swastikroy.com.mobile_computing_assignment1.util.RandomHealthDataGenerator;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,31 +64,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void runMonitoring(){
         List<HealthDatum> dummy_health_data = RandomHealthDataGenerator.get_dummy_health_data(FLOAT_ARRAY_SIZE, MAX_Y_AXIS, MIN_Y_AXIS);
-        dataPoints = new float[FLOAT_ARRAY_SIZE];
-        for(int i = 0; i < FLOAT_ARRAY_SIZE; i++){
-            dataPoints[i] = (float) dummy_health_data.get(i).getY();
-        }
-        holder.graph.setValues(dataPoints);
-        drawGraph(dataPoints);
-//        DataPoint[] dataPoints = new DataPoint[FLOAT_ARRAY_SIZE];
-//        for(int i = 0; i < dummy_health_data.size(); i++){
-//            dataPoints[i] = new DataPoint(dummy_health_data.get(i).getX(),dummy_health_data.get(i).getY());
+//        dataPoints = new float[FLOAT_ARRAY_SIZE];
+//        for(int i = 0; i < FLOAT_ARRAY_SIZE; i++){
+//            dataPoints[i] = (float) dummy_health_data.get(i).getY();
 //        }
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
-//        holder.graph.removeAllSeries();
-//        holder.graph.addSeries(series);
+//        holder.graph.setValues(dataPoints);
+        drawGraph(dummy_health_data);
+
 // Start the initial runnable task by posting through the handler
         handler.removeCallbacks(runnableCode);
         handler.post(runnableCode);
     }
 
-    public void drawGraph(float[] points){
-        String[] horLabels = {"2700", "2750", "2800", "2850", "2900", "2950", "3000", "3050", "3100"};
-        String[] verLabels = {"500", "1000", "1500", "2000"};
-        holder.graph  = new GraphView(this, points,"Heart Rate Monitor", horLabels, verLabels, GraphView.LINE);
-        holder.graphViewContainer.removeAllViews();
-        holder.graphViewContainer.addView(holder.graph);
+    public void drawGraph(List<HealthDatum> dummy_health_data){
+        DataPoint[] dataPoints = new DataPoint[FLOAT_ARRAY_SIZE];
+        for(int i = 0; i < dummy_health_data.size(); i++){
+            dataPoints[i] = new DataPoint(dummy_health_data.get(i).getX(),dummy_health_data.get(i).getY());
+        }
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+        holder.graph.removeAllSeries();
+        holder.graph.addSeries(series);
     }
+
+//    public void drawGraph(float[] points){
+//        String[] horLabels = {"2700", "2750", "2800", "2850", "2900", "2950", "3000", "3050", "3100"};
+//        String[] verLabels = {"500", "1000", "1500", "2000"};
+//        holder.graph  = new GraphView(this, points,"Heart Rate Monitor", horLabels, verLabels, GraphView.LINE);
+//        holder.graphViewContainer.removeAllViews();
+//        holder.graphViewContainer.addView(holder.graph);
+//    }
 
     // Create the Handler object (on the main thread by default)
     Handler handler = new Handler();
@@ -106,27 +113,33 @@ public class MainActivity extends AppCompatActivity {
         List<HealthDatum> dummy_health_data = RandomHealthDataGenerator.get_dummy_health_data(2, MAX_Y_AXIS, MIN_Y_AXIS);
         dataPoints = new float[FLOAT_ARRAY_SIZE];
         List<Float> newDataPoints = new ArrayList<>();
+        DataPoint[] dataPoints = new DataPoint[2];
         int i = 0 ;
         for(i = 0; i < 2; i++){
             newDataPoints.add((float)dummy_health_data.get(i).getY());
+            dataPoints[i] = new DataPoint(dummy_health_data.get(i).getX(),dummy_health_data.get(i).getY());
         }
 
-        for(i = i; i < FLOAT_ARRAY_SIZE; i++){
-//            dataPoints[i] = oldDataPoints[i-10];
-            newDataPoints.add(oldDataPoints[i-1]);
-        }
-        for(int j = 0; j < newDataPoints.size(); j++){
-            dataPoints[j] = newDataPoints.get(j);
-        }
-        holder.graph.setValues(dataPoints);
-        drawGraph(dataPoints);
+
+
+//        for(i = i; i < FLOAT_ARRAY_SIZE; i++){
+////            dataPoints[i] = oldDataPoints[i-10];
+//            newDataPoints.add(oldDataPoints[i-1]);
+//        }
+//        for(int j = 0; j < newDataPoints.size(); j++){
+//            dataPoints[j] = newDataPoints.get(j);
+//        }
+//        holder.graph.setValues(dataPoints);
+//        drawGraph(dataPoints);
+        holder.graph.addSeries(new LineGraphSeries(dataPoints));
     }
 
     public void stopMonitoring(){
-        holder.graph.setValues(new float[]{});
-        drawGraph(new float[]{});
+//        holder.graph.setValues(new float[]{});
+//        drawGraph(new float[]{});
         handler.removeCallbacks(runnableCode);
-        holder.graphViewContainer.removeAllViews();
+//        holder.graphViewContainer.removeAllViews();
+        holder.graph.removeAllSeries();
 
 //        holder.graph.removeAllSeries();
     }
@@ -136,13 +149,14 @@ public class MainActivity extends AppCompatActivity {
         Button runBtn, stopBtn;
         LinearLayout graphViewContainer;
         public ViewHolder(Activity activity) {
-            String[] horLabels = {"2700", "2750", "2800", "2850", "2900", "2950", "3000", "3050", "3100"};
-            String[] verLabels = {"500", "1000", "1500", "2000"};
-            graph = new GraphView(activity, new float[]{},"Heart Rate Monitor", horLabels, verLabels, false);
+//            String[] horLabels = {"2700", "2750", "2800", "2850", "2900", "2950", "3000", "3050", "3100"};
+//            String[] verLabels = {"500", "1000", "1500", "2000"};
+//            graph = new GraphView(activity, new float[]{},"Heart Rate Monitor", horLabels, verLabels, false);
             runBtn = (Button) activity.findViewById(R.id.run_btn);
+            graph = (GraphView) activity.findViewById(R.id.graph);
             stopBtn = (Button) activity.findViewById(R.id.stop_btn);
-            graphViewContainer = (LinearLayout) activity.findViewById(R.id.graphview_container);
-            graphViewContainer.addView(graph);
+//            graphViewContainer = (LinearLayout) activity.findViewById(R.id.graphview_container);
+//            graphViewContainer.addView(graph);
         }
     }
 }
