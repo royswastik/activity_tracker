@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this, MainActivity2.class);
+                Intent intent = new Intent(SplashActivity.this, HeartRateMonitorActivity.class);
                 startActivity(intent);
                 finish();
             }

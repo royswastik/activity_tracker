@@ -27,7 +27,7 @@ import swastikroy.com.mobile_computing_assignment1.models.Patient;
 import swastikroy.com.mobile_computing_assignment1.util.NotificationUtil;
 import swastikroy.com.mobile_computing_assignment1.util.RandomHealthDataGenerator;
 
-public class MainActivity2 extends AppCompatActivity {
+public class HeartRateMonitorActivity extends AppCompatActivity {
 
     ViewHolder holder;
     public static int FLOAT_ARRAY_SIZE = 140;
@@ -35,8 +35,6 @@ public class MainActivity2 extends AppCompatActivity {
     public static int MAX_Y_AXIS = 2400;
     public static int MIN_Y_AXIS = 0;
     private LineGraphSeries<DataPoint> series;
-    long lastTimeStamp = 0;
-    long currSecond = 0;
     boolean running = false;
     Patient patient;
 
@@ -48,6 +46,9 @@ public class MainActivity2 extends AppCompatActivity {
         setup();
     }
 
+    /**
+     * Sets up everything in the app
+     */
     public void setup(){
         this.holder = new ViewHolder(this);
         addListeners();
@@ -58,25 +59,11 @@ public class MainActivity2 extends AppCompatActivity {
 
                 if (isValueX) {
                     value = value*5;
-//                    long currTimeStamp = System.currentTimeMillis();
-//                    if(lastTimeStamp == 0){
-//                        currSecond++;
-//                    }
-//                    else if(currTimeStamp >=lastTimeStamp+1000){
-//                        currSecond++;
-//                    }
-//                    else{
-//                        return "";
-//                    }
-//                    lastTimeStamp = currTimeStamp;
-
-                    // show normal x values
                     if((((int)value) - value) >0.01){
                         return "";
                     }
                     return super.formatLabel((int)value, isValueX);
                 } else {
-                    // show currency for y values
                     return super.formatLabel(value, isValueX);
                 }
             }
@@ -84,7 +71,9 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-
+    /*
+     * Adds listeners to UI elements
+     */
     public void addListeners(){
         holder.runBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,14 +91,11 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-
+    /*
+     * Runs Monitoring task when 'Run' button is pressed
+     */
     public void runMonitoring(){
         List<HealthDatum> dummy_health_data = RandomHealthDataGenerator.get_dummy_health_data(FLOAT_ARRAY_SIZE, MAX_Y_AXIS, MIN_Y_AXIS);
-//        dataPoints = new float[FLOAT_ARRAY_SIZE];
-//        for(int i = 0; i < FLOAT_ARRAY_SIZE; i++){
-//            dataPoints[i] = (float) dummy_health_data.get(i).getY();
-//        }
-//        holder.graph.setValues(dataPoints);
         if(running == true){
             NotificationUtil.notify("Already running", this);
             return;
@@ -122,7 +108,6 @@ public class MainActivity2 extends AppCompatActivity {
         }
 
 
-// Start the initial runnable task by posting through the handler
         handler.removeCallbacks(runnableCode);
         handler.post(runnableCode);
         running = true;
@@ -137,10 +122,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         series = new LineGraphSeries<>(toDataPointArray(dataPoints));
         series.setThickness(8);
-//        series.setBackgroundColor(Color.BLACK);
         series.setColor(Color.rgb(22,160,133));
-
-//        holder.graph.removeAllSeries();
         holder.graph.addSeries(series);
     }
 
@@ -151,12 +133,9 @@ public class MainActivity2 extends AppCompatActivity {
         @Override
         public void run() {
             updateGraph();
-            // Do something here on the main thread
-            Log.d("Handlers", "Called on main thread");
             handler.postDelayed(this, 100);
         }
     };
-// Run
 
     public DataPoint[] toDataPointArray(List<DataPoint> dataPointsList){
         DataPoint[] arr = new DataPoint[dataPointsList.size()];
@@ -168,10 +147,8 @@ public class MainActivity2 extends AppCompatActivity {
 
     public void updateGraph(){
         DataPoint[] newDataPoints = RandomHealthDataGenerator.get_dummy_health_data_list(2, MAX_Y_AXIS, MIN_Y_AXIS);
-//        dataPoints = new DataPoint[FLOAT_ARRAY_SIZE];
         int i = 0 ;
         for(i = 0; i < 2; i++){
-//            dataPoints[i] = new DataPoint(newDataPoints[i].getX(),newDataPoints[i].getY());
             DataPoint lastValue = dataPoints.get(dataPoints.size()-1);
             DataPoint newDataPoint = new DataPoint(lastValue.getX()+0.01d, newDataPoints[i].getY());
             dataPoints.add(newDataPoint);
@@ -179,21 +156,12 @@ public class MainActivity2 extends AppCompatActivity {
             series.appendData(newDataPoint, true, 40);
         }
         series.resetData(toDataPointArray(dataPoints));
-//        holder.graph.removeAllSeries();
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<>((DataPoint[]) dataPoints.toArray());
-//        holder.graph.appe(series);
-//        series.appendData(newDataPointsArr);
     }
 
 
 
     public void stopMonitoring(){
-//        holder.graph.setValues(new float[]{});
-//        drawGraph(new float[]{});
-
         handler.removeCallbacks(runnableCode);
-//        holder.graphViewContainer.removeAllViews();
-//        holder.graph.removeAllSeries();
 
         holder.graph.removeAllSeries();
         running = false;
@@ -212,9 +180,7 @@ public class MainActivity2 extends AppCompatActivity {
             NotificationUtil.notify("Please set patient id", this);
             return;
         }
-//        holder.graph.setTitle(patient.getName());
         NotificationUtil.notify("Hello "+patient.getName()+"! Saved.", this);
-//        series.setTitle(patient.getName());
     }
 
     static class ViewHolder{
@@ -234,16 +200,8 @@ public class MainActivity2 extends AppCompatActivity {
             graph.getViewport().setMaxY(2400);
             graph.getGridLabelRenderer().setVerticalAxisTitle("Heart Rate");
             graph.getGridLabelRenderer().setHorizontalAxisTitle("Seconds");
-//            graph.getGridLabelRenderer().setGridColor(Color.BLACK);
 
             graph.getGridLabelRenderer().setGridStyle( GridLabelRenderer.GridStyle.HORIZONTAL );
-//            graph.setTitle("Patient Not Set(Getting dummy data)");
-//            graph.getLegendRenderer().setVisible(true);
-
-
-
-
-
         }
     }
 }
