@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="swastikroy.com.mobile_computing_assignment1.util.PatientDataActivity">
+    tools:context="swastikroy.com.mobile_computing_assignment1.HeartRateMonitorActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,6 +99,7 @@
     </LinearLayout>
     <Button
         android:id="@+id/patient_save"
+        android:drawableLeft="@drawable/ic_save_black_24dp"
         android:layout_marginTop="20dp"
         android:onClick="savePatient"
         android:layout_width="match_parent"

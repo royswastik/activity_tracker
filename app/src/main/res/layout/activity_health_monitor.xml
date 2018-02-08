@@ -54,12 +54,16 @@
                             android:id="@+id/run_btn"
                             android:layout_weight="1"
                             android:layout_width="0dp"
+                            android:backgroundTint="#8BC34A"
+                            android:drawableLeft="@drawable/ic_play_arrow_black_24dp"
                             android:layout_height="wrap_content" />
                         <Button
                             android:text="Stop"
                             android:id="@+id/stop_btn"
                             android:layout_weight="1"
                             android:layout_width="0dp"
+                            android:backgroundTint="@color/colorGray"
+                            android:drawableLeft="@drawable/ic_stop_black_24dp"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
                     <include layout="@layout/activity_patient_data" />

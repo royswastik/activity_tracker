@@ -1,12 +1,14 @@
 package swastikroy.com.mobile_computing_assignment1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -44,7 +46,16 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_health_monitor);
 
         setup();
+
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
+
+
 
     /**
      * Sets up everything in the app
@@ -106,8 +117,8 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         else{
             holder.graph.addSeries(series);
         }
-
-
+        holder.stopBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorStopBtn));
+        holder.runBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorGray));
         handler.removeCallbacks(runnableCode);
         handler.post(runnableCode);
         running = true;
@@ -164,6 +175,8 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         handler.removeCallbacks(runnableCode);
 
         holder.graph.removeAllSeries();
+        holder.stopBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorGray));
+        holder.runBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorRunBtn));
         running = false;
     }
 
