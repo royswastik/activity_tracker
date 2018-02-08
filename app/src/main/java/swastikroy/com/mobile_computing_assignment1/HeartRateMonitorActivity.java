@@ -6,21 +6,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,7 +124,7 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
 
         dataPoints = new ArrayList<>();
         for(int i = 0; i < dummy_health_data.size(); i++){
-            dataPoints.add(new DataPoint(dummy_health_data.get(i).getX(),dummy_health_data.get(i).getY()));
+            dataPoints.add(new DataPoint(dummy_health_data.get(i).getTime(),dummy_health_data.get(i).getValue()));
         }
 
         series = new LineGraphSeries<>(toDataPointArray(dataPoints));

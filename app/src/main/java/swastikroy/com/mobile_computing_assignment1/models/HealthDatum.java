@@ -5,28 +5,29 @@ package swastikroy.com.mobile_computing_assignment1.models;
  */
 
 public class HealthDatum {
-    private double x;
-    private double y;
+    private double time;
+    private double value;
+    Patient patient;
 
-    public HealthDatum(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public HealthDatum(double time, double value) {
+        this.time = time;
+        this.value = value;
     }
 
-    public double getX() {
-        return x;
+    public double getTime() {
+        return time;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public void setTime(double time) {
+        this.time = time;
     }
 
-    public double getY() {
-        return y;
+    public double getValue() {
+        return value;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public void setValue(double value) {
+        this.value = value;
     }
 
 
