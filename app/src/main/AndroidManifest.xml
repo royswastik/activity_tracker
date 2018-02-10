@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="swastikroy.com.mobile_computing_assignment1">
+    package="swastikroy.com.group4">
 
     <application
         android:allowBackup="true"
@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HeartRateMonitorActivity">
+        <activity android:name="swastikroy.com.group4.HeartRateMonitorActivity">
 
         </activity>
-        <activity android:name=".SplashActivity">
+        <activity android:name="swastikroy.com.group4.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1.util;
+package swastikroy.com.group4.util;
 
 import android.app.Activity;
 import android.widget.Toast;
@@ -8,6 +8,12 @@ import android.widget.Toast;
  */
 
 public class NotificationUtil {
+
+    /**
+     * Generates a Toast Message
+     * @param text
+     * @param activity
+     */
     public static void notify(String text, Activity activity){
         Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
     }

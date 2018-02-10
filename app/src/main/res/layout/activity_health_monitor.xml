@@ -8,7 +8,7 @@
     android:background="@android:color/darker_gray"
     android:padding="3dp"
     android:id="@+id/container"
-    tools:context="swastikroy.com.mobile_computing_assignment1.adapters.HealthMonitorActivity">
+    tools:context="swastikroy.com.group4.adapters.HealthMonitorActivity">
     <!--<LinearLayout-->
         <!--android:id="@+id/graphview_container"-->
         <!--android:layout_width="match_parent"-->

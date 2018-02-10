@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1.models;
+package swastikroy.com.group4.models;
 
 /**
  * Created by sroy41 on 2/6/2018.

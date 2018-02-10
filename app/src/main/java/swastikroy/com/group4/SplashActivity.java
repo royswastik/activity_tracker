@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1;
+package swastikroy.com.group4;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -27,6 +27,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
+        finish();   //Finish Splash screen if activity is paused
     }
 }

@@ -1,12 +1,12 @@
-package swastikroy.com.mobile_computing_assignment1.models;
+package swastikroy.com.group4.models;
 
 /**
  * Created by Swastik on 1/22/2018.
+ * The model is used to store an instance of Heart Rate Data
  */
-
 public class HealthDatum {
-    private double time;
-    private double value;
+    private double time;    //In Seconds
+    private double value;   //Heart rate
     Patient patient;
 
     public HealthDatum(double time, double value) {

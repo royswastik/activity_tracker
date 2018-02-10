@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1;
+package swastikroy.com.group4;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,35 +20,30 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.ArrayList;
 import java.util.List;
 
-import swastikroy.com.mobile_computing_assignment1.models.HealthDatum;
-import swastikroy.com.mobile_computing_assignment1.models.Patient;
-import swastikroy.com.mobile_computing_assignment1.util.NotificationUtil;
-import swastikroy.com.mobile_computing_assignment1.util.RandomHealthDataGenerator;
+import swastikroy.com.group4.models.HealthDatum;
+import swastikroy.com.group4.models.Patient;
+import swastikroy.com.group4.util.NotificationUtil;
+import swastikroy.com.group4.util.RandomHealthDataGenerator;
 
+/**
+ * This is the main activity
+ */
 public class HeartRateMonitorActivity extends AppCompatActivity {
 
-    ViewHolder holder;
+    ViewHolder holder;  //This holds all view instances
     public static int FLOAT_ARRAY_SIZE = 140;
     List<DataPoint> dataPoints;
-    public static int MAX_Y_AXIS = 2400;
-    public static int MIN_Y_AXIS = 0;
-    private LineGraphSeries<DataPoint> series;
-    boolean running = false;
-    Patient patient;
+    public static int MAX_Y_AXIS = 2400;    //Max value of Heart Rate
+    public static int MIN_Y_AXIS = 0;       //Min value of Heart Rate
+    private LineGraphSeries<DataPoint> series;      //This stores instances of heart rate to show in graph
+    boolean running = false;    //Flag to check if graph is running
+    Patient patient;       //To store patient data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_monitor);
-
         setup();
-
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
 
@@ -133,9 +128,7 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         holder.graph.addSeries(series);
     }
 
-    // Create the Handler object (on the main thread by default)
     Handler handler = new Handler();
-    // Define the code block to be executed
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
@@ -144,6 +137,11 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Convert list of #DataPoint to array
+     * @param dataPointsList
+     * @return
+     */
     public DataPoint[] toDataPointArray(List<DataPoint> dataPointsList){
         DataPoint[] arr = new DataPoint[dataPointsList.size()];
         for(int i=0; i<arr.length; i++){
@@ -152,6 +150,9 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         return arr;
     }
 
+    /**
+     * Called to update graph when new data is fetched
+     */
     public void updateGraph(){
         DataPoint[] newDataPoints = RandomHealthDataGenerator.get_dummy_health_data_list(2, MAX_Y_AXIS, MIN_Y_AXIS);
         int i = 0 ;
@@ -165,8 +166,9 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         series.resetData(toDataPointArray(dataPoints));
     }
 
-
-
+    /**
+     * Called when 'stop' button is clicked
+     */
     public void stopMonitoring(){
         handler.removeCallbacks(runnableCode);
 
@@ -176,6 +178,10 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         running = false;
     }
 
+    /**
+     * Method to save patient information
+     * @param view
+     */
     public void savePatient(View view){
         patient = new Patient();
         patient.setName(((EditText)findViewById(R.id.patient_name)).getText().toString());
@@ -192,6 +198,9 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
         NotificationUtil.notify("Hello "+patient.getName()+"! Saved.", this);
     }
 
+    /**
+     * Class to contain all the views
+     */
     static class ViewHolder{
         GraphView graph;
         Button runBtn, stopBtn;

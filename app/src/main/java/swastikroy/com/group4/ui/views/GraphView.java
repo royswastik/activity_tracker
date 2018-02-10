@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1.ui.views;
+package swastikroy.com.group4.ui.views;
 
 /**
  * Created by altunkaya on 2/2/18.

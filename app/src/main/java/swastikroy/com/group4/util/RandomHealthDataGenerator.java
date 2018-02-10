@@ -1,4 +1,4 @@
-package swastikroy.com.mobile_computing_assignment1.util;
+package swastikroy.com.group4.util;
 
 import com.jjoe64.graphview.series.DataPoint;
 
@@ -6,15 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import swastikroy.com.mobile_computing_assignment1.models.HealthDatum;
+import swastikroy.com.group4.models.HealthDatum;
 
 /**
  * Created by Swastik on 1/22/2018.
+ * Generates random health data
  */
 public class RandomHealthDataGenerator {
 
     public static Random random = new Random();
 
+    @Deprecated
     public static int getRandomHealthData(int min, int max){
         int i1 = random.nextInt(max - min) + min;
         return i1;
