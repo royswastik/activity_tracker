@@ -211,6 +211,7 @@ public class HeartRateMonitorActivity extends AppCompatActivity {
             graph = (GraphView) activity.findViewById(R.id.graph);
             stopBtn = (Button) activity.findViewById(R.id.stop_btn);
 
+            graph.getViewport().setYAxisBoundsManual(true);
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMinX(0);
             graph.getViewport().setMinX(0);
