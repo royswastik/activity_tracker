@@ -18,7 +18,7 @@ public class Constants {
 
     public static final String PHP_PATH = "http://impact.asu.edu/CSE535Spring18Folder/UploadToServer.php";
 
-    public static final String SERVER_DB_PATH = PHP_PATH+ DBHelper.dbFilePath;
+    public static final String SERVER_DB_PATH = "http://impact.asu.edu/CSE535Spring18Folder/"+ DBHelper.dbFileName;
 
     public static final String DownloadDir = "/Android/Data/CSE535_ASSIGNMENT2_DOWN/";
 

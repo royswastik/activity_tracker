@@ -43,7 +43,7 @@ public class NetworkUtil {
 
     public interface IDownloaderListener{
         void progressUpdate(String[] values);
-        void downloadComplete(List<AccelerometerDatum> accelerometerData);
+        void downloadComplete(int responseCode);
         void downloadFailed();
     }
 
@@ -63,8 +63,9 @@ public class NetworkUtil {
         boolean flag = false;   //flag to check for any exception
         ProgressDialog waitDialog;  //progress dialog to disable activity during download
 
+        IDownloaderListener mListener;
         AsyncDownloadFile(IDownloaderListener mListener){
-
+            this.mListener = mListener;
         }
 
         @Override
@@ -135,11 +136,14 @@ public class NetworkUtil {
         protected void onPostExecute(Void aVoid)
         {
             super.onPostExecute(aVoid);
-            waitDialog.dismiss();   //remove dialog after download completes
+//            waitDialog.dismiss();   //remove dialog after download completes
 
             //show message if download is successful
-            if(!flag)
+            if(!flag) {
                 NotificationUtil.makeAToast("Download completed");
+                mListener.downloadComplete(200);
+
+            }
 //
 //            db1 = SQLiteDatabase.openOrCreateDatabase(android.os.Environment.getExternalStorageDirectory() + downloadDir + fileName, null);
 //            db1.beginTransaction();
