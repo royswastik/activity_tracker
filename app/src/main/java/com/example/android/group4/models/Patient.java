@@ -1,11 +1,14 @@
 package com.example.android.group4.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Created by sroy41 on 2/6/2018.
  */
 
-public class Patient {
+public class Patient implements Serializable {
+
+
     String id;
     String name;
     String age;
