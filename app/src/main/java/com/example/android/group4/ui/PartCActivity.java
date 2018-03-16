@@ -36,7 +36,7 @@ public class PartCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_part_c);
 
-        downloadBtn = (Button) findViewById(R.id.upload_btn);
+        downloadBtn = (Button) findViewById(R.id.download_btn);
         resp_text = (TextView) findViewById(R.id.resp_msg);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -81,12 +81,12 @@ public class PartCActivity extends AppCompatActivity {
         NetworkUtil.downloadFile(new NetworkUtil.IDownloaderListener() {
             @Override
             public void progressUpdate(String[] values) {
-                
+
             }
 
             @Override
-            public void downloadComplete(List<AccelerometerDatum> accelerometerData) {
-
+            public void downloadComplete(int responseCode) {
+                resp_text.setText("Download Complete");
             }
 
             @Override
