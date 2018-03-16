@@ -21,10 +21,10 @@ import java.util.List;
 public class DBHelper {
     SQLiteDatabase db;
     String downloadDir = "/CSE535_Assignment2/Other/";    //folder for download
-    static String dbFileName = "Group4.db";  //databse name
+    public static String dbFileName = "Group4.db";  //databse name
     static String baseDbDir="/Android/Data/CSE535_ASSIGNMENT2";
     //Path where db to be created
-    static String dbFilePath = baseDbDir+"/"+dbFileName;
+    public static String dbFilePath = baseDbDir+"/"+dbFileName;
 
     public static void initPatientTable(Patient patientData){
 
@@ -105,5 +105,9 @@ public class DBHelper {
             }
         }
         return folder;
+    }
+
+    public static String getDBFilePath(){
+        return android.os.Environment.getExternalStorageDirectory().toString() + dbFilePath;
     }
 }
