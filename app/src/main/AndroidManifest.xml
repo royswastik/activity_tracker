@@ -32,7 +32,8 @@
         <activity android:name=".ui.ListActivity" />
         <activity android:name=".ui.PartAActivity" />
         <activity android:name=".ui.PartBActivity" />
-        <activity android:name=".ui.PartCActivity"></activity>
+        <activity android:name=".ui.PartCActivity" />
+        <activity android:name=".ui.PatientInfoActivity"></activity>
     </application>
 
 </manifest>

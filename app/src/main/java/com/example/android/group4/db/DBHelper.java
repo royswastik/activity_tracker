@@ -21,11 +21,8 @@ public class DBHelper {
     static String baseDbDir="/Android/Data/CSE535_ASSIGNMENT2";
     //Path where db to be created
     static String dbFilePath = baseDbDir+"/"+dbFileName;
-    public static void saveToDB(){
 
-    }
-
-    public static void saveToDB(Patient patientData){
+    public static void initDB(Patient patientData){
         checkDBFolder();    //This creates the database folder if not created
         SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
         db.beginTransaction();
