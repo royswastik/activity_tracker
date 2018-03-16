@@ -41,6 +41,13 @@
         <activity android:name=".ui.PartBActivity" />
         <activity android:name=".ui.PartCActivity" />
         <activity android:name=".ui.PatientInfoActivity"></activity>
+
+        <receiver android:name=".receivers.DataReceiver">
+            <intent-filter>
+                <action android:name="com.example.android.group4.services.SensorHandlerService" >
+                </action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

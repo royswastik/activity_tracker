@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,9 +59,20 @@ public class SensorHandlerService extends Service  implements SensorEventListene
                 accelerometerDatum.setZ(z);
                 DBHelper.insertAccelerometerData(accelerometerDatum);
 
+                setEventMessage(accelerometerDatum);
+
             }
 
         }
+    }
+
+    public void setEventMessage(AccelerometerDatum accelerometerDatum){
+        Intent intent = new Intent();
+        intent.setAction(ACTION);
+        Bundle b = new Bundle();
+        b.putSerializable("data",accelerometerDatum );
+        intent.putExtras(b);
+        sendBroadcast(intent);
     }
 
     @Override
