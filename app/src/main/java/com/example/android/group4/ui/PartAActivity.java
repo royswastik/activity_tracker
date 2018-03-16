@@ -35,6 +35,10 @@ public class PartAActivity extends AppCompatActivity {
     public LineGraphSeries<DataPoint> series3;
     GraphView graph;
 
+    int timercount = 0;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,13 +116,16 @@ public class PartAActivity extends AppCompatActivity {
 
     public void onReceiveData(AccelerometerDatum accelerometerDatum){
 
+        System.out.println(accelerometerDatum);
         Toast.makeText(this, "On received Reached", Toast.LENGTH_LONG).show();
-        series1.appendData(new DataPoint((int)accelerometerDatum.getTimestamp(),(int)accelerometerDatum.getX()), true, 40);
-        series2.appendData(new DataPoint((int) accelerometerDatum.getTimestamp(),(int)accelerometerDatum.getY()), true, 40);
-        series3.appendData(new DataPoint(((int)accelerometerDatum.getTimestamp()),(int)accelerometerDatum.getZ()), true, 40);
+        series1.appendData(new DataPoint(timercount,(int)accelerometerDatum.getX()), true, 40);
+        series2.appendData(new DataPoint(timercount,(int)accelerometerDatum.getY()), true, 40);
+        series3.appendData(new DataPoint(timercount,(int)accelerometerDatum.getZ()), true, 40);
+        timercount++;
         graph.addSeries(series1);
         graph.addSeries(series2);
         graph.addSeries(series3);
+
 
     }
 
