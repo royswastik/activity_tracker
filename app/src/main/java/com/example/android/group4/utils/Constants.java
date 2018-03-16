@@ -16,7 +16,7 @@ public class Constants {
     public static final String KEY_Zaxis = "KEY_Zaxis";
 
 
-    public static final String PHP_PATH = "";
+    public static final String PHP_PATH = "http://impact.asu.edu/CSE535Spring18Folder/UploadToServer.php";
 
     public static final String SERVER_DB_PATH = PHP_PATH+ DBHelper.dbFilePath;
 

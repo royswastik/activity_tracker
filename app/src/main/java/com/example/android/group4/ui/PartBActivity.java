@@ -36,6 +36,9 @@ public class PartBActivity extends AppCompatActivity {
     }
 
     public void uploadDB(){
+        progressBar.setVisibility(View.VISIBLE);
+        resp_text.setVisibility(View.VISIBLE);
+        resp_text.setText("Uploading");
         NetworkUtil.uploadFile(new NetworkUtil.IUploaderListener() {
             @Override
             public void progressUpdate(String[] values) {
@@ -44,7 +47,7 @@ public class PartBActivity extends AppCompatActivity {
 
             @Override
             public void uploadComplete(int resultCode) {
-
+                resp_text.setText("Upload Complete");
             }
 
             @Override

@@ -37,8 +37,8 @@ public class NetworkUtil {
 
 
     public static void downloadFile(IDownloaderListener mListener){
-//        AsyncDownloadFile upTask = new AsyncDownloadFile(mListener);
-//        upTask.execute();
+        AsyncDownloadFile upTask = new AsyncDownloadFile(mListener);
+        upTask.execute();
     }
 
     public interface IDownloaderListener{
@@ -327,7 +327,7 @@ public class NetworkUtil {
 
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            waitDialog.dismiss();
+//            waitDialog.dismiss();
             //display if upload is success
             if(flag == 1){
                 NotificationUtil.makeAToast("Upload completed");
