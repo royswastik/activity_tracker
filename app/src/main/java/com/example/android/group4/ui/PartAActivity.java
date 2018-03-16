@@ -16,6 +16,7 @@ import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
 import com.example.android.group4.models.AccelerometerDatum;
 import com.example.android.group4.models.Patient;
+import com.example.android.group4.receivers.DataReceiver;
 import com.example.android.group4.services.SensorHandlerService;
 import com.example.android.group4.utils.NotificationUtil;
 import com.example.android.group4.utils.SharedPreferenceUtil;
@@ -78,7 +79,13 @@ public class PartAActivity extends AppCompatActivity {
         super.onResume();
         checkPatientData();
         IntentFilter filter = new IntentFilter(SensorHandlerService.ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(dataReceiver, filter);
+        registerReceiver(dataReceiver, filter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(dataReceiver);
     }
 
     public boolean checkPatientData(){
@@ -94,7 +101,7 @@ public class PartAActivity extends AppCompatActivity {
     }
 
     // Define the callback for what to do when data is received
-    private BroadcastReceiver dataReceiver = new BroadcastReceiver() {
+    public DataReceiver dataReceiver = new DataReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             AccelerometerDatum accelerometerDatum = (AccelerometerDatum) intent.getSerializableExtra("data");

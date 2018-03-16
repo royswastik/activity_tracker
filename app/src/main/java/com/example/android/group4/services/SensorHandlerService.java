@@ -59,14 +59,20 @@ public class SensorHandlerService extends Service  implements SensorEventListene
                 accelerometerDatum.setZ(z);
                 DBHelper.insertAccelerometerData(accelerometerDatum);
 
-                Intent intent = new Intent();
-                Bundle b = new Bundle();
-                b.putSerializable("data", accelerometerDatum);
-                intent.setAction(ACTION);
-                sendBroadcast(intent);
+                setEventMessage(accelerometerDatum);
+
             }
 
         }
+    }
+
+    public void setEventMessage(AccelerometerDatum accelerometerDatum){
+        Intent intent = new Intent();
+        intent.setAction(ACTION);
+        Bundle b = new Bundle();
+        b.putSerializable("data",accelerometerDatum );
+        intent.putExtras(b);
+        sendBroadcast(intent);
     }
 
     @Override

@@ -139,91 +139,91 @@ public class NetworkUtil {
 
             //show message if download is successful
             if(!flag)
-                Toast.makeText(MainActivity.this, "Download completed", Toast.LENGTH_SHORT).show();
-
-            db1 = SQLiteDatabase.openOrCreateDatabase(android.os.Environment.getExternalStorageDirectory() + downloadDir + fileName, null);
-            db1.beginTransaction();
-
-            Cursor c = db1.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
-            c.moveToLast();
-            tableName = c.getString(0);
-
-            String [] tabNameSplit = tableName.split("_");
-
-            nameString.setText(tabNameSplit[0]);
-            idValue.setText(tabNameSplit[1]);
-            ageValue.setText(tabNameSplit[2]);
-
-            RadioButton maleRadioButton, femaleRadioButton;
-            maleRadioButton = (RadioButton) findViewById(R.id.sex_male);
-            femaleRadioButton = (RadioButton) findViewById(R.id.sex_female);
-            if(tabNameSplit[3].equalsIgnoreCase("male"))
-            {
-                maleRadioButton.setChecked(true);
-                femaleRadioButton.setChecked(false);
-                patientSex = maleRadioButton.getText().toString();
-            }
-            else
-            {
-                maleRadioButton.setChecked(false);
-                femaleRadioButton.setChecked(true);
-                patientSex = femaleRadioButton.getText().toString();
-            }
-
-            patientName=nameString.getText().toString(); //Receives patient info
-            patientId=Integer.parseInt(idValue.getText().toString());
-            patientAge=Integer.parseInt(ageValue.getText().toString());
-
-
-
-
-
-            final String TABLE_NAME = tableName;
-            String selectQuery = "SELECT  * FROM " + TABLE_NAME;  //selects entries from table
-            Cursor cursor = db1.rawQuery(selectQuery, null);
-            db1.endTransaction();
-
-            if (cursor.moveToFirst())
-            {
-                do
-                {
-
-                    xValues.add(Float.parseFloat(cursor.getString(1)));
-                    yValues.add(Float.parseFloat(cursor.getString(2)));
-                    zValues.add(Float.parseFloat(cursor.getString(3)));
-
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-
-            final Timer timer = new Timer();
-            timer.scheduleAtFixedRate( new TimerTask() {
-                public void run() {                             //plots graph from db
-
-                    if(traverseEleCount<xValues.size())
-                    {
-
-                        series1.appendData(new DataPoint(graph2LastXValue, xValues.get(traverseEleCount)), true, 15);
-                        series2.appendData(new DataPoint(graph2LastXValue, yValues.get(traverseEleCount)), true, 15);
-                        series3.appendData(new DataPoint(graph2LastXValue, zValues.get(traverseEleCount)), true, 15);
-                        graph2LastXValue += 1d;
-
-                        traverseEleCount++;
-                    }
-                    else if(traverseEleCount != 0 && traverseEleCount>=xValues.size())
-                    {
-                        xValues.clear();
-                        yValues.clear();
-                        zValues.clear();
-                        traverseEleCount=0;
-
-                        clearEditTexts=true;
-
-                        timer.cancel();
-                        timer.purge();
-                    }
-                }
-            }, 0, 1000);
+                NotificationUtil.makeAToast("Download completed");
+//
+//            db1 = SQLiteDatabase.openOrCreateDatabase(android.os.Environment.getExternalStorageDirectory() + downloadDir + fileName, null);
+//            db1.beginTransaction();
+//
+//            Cursor c = db1.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+//            c.moveToLast();
+//            tableName = c.getString(0);
+//
+//            String [] tabNameSplit = tableName.split("_");
+//
+//            nameString.setText(tabNameSplit[0]);
+//            idValue.setText(tabNameSplit[1]);
+//            ageValue.setText(tabNameSplit[2]);
+//
+//            RadioButton maleRadioButton, femaleRadioButton;
+//            maleRadioButton = (RadioButton) findViewById(R.id.sex_male);
+//            femaleRadioButton = (RadioButton) findViewById(R.id.sex_female);
+//            if(tabNameSplit[3].equalsIgnoreCase("male"))
+//            {
+//                maleRadioButton.setChecked(true);
+//                femaleRadioButton.setChecked(false);
+//                patientSex = maleRadioButton.getText().toString();
+//            }
+//            else
+//            {
+//                maleRadioButton.setChecked(false);
+//                femaleRadioButton.setChecked(true);
+//                patientSex = femaleRadioButton.getText().toString();
+//            }
+//
+//            patientName=nameString.getText().toString(); //Receives patient info
+//            patientId=Integer.parseInt(idValue.getText().toString());
+//            patientAge=Integer.parseInt(ageValue.getText().toString());
+//
+//
+//
+//
+//
+//            final String TABLE_NAME = tableName;
+//            String selectQuery = "SELECT  * FROM " + TABLE_NAME;  //selects entries from table
+//            Cursor cursor = db1.rawQuery(selectQuery, null);
+//            db1.endTransaction();
+//
+//            if (cursor.moveToFirst())
+//            {
+//                do
+//                {
+//
+//                    xValues.add(Float.parseFloat(cursor.getString(1)));
+//                    yValues.add(Float.parseFloat(cursor.getString(2)));
+//                    zValues.add(Float.parseFloat(cursor.getString(3)));
+//
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//
+//            final Timer timer = new Timer();
+//            timer.scheduleAtFixedRate( new TimerTask() {
+//                public void run() {                             //plots graph from db
+//
+//                    if(traverseEleCount<xValues.size())
+//                    {
+//
+//                        series1.appendData(new DataPoint(graph2LastXValue, xValues.get(traverseEleCount)), true, 15);
+//                        series2.appendData(new DataPoint(graph2LastXValue, yValues.get(traverseEleCount)), true, 15);
+//                        series3.appendData(new DataPoint(graph2LastXValue, zValues.get(traverseEleCount)), true, 15);
+//                        graph2LastXValue += 1d;
+//
+//                        traverseEleCount++;
+//                    }
+//                    else if(traverseEleCount != 0 && traverseEleCount>=xValues.size())
+//                    {
+//                        xValues.clear();
+//                        yValues.clear();
+//                        zValues.clear();
+//                        traverseEleCount=0;
+//
+//                        clearEditTexts=true;
+//
+//                        timer.cancel();
+//                        timer.purge();
+//                    }
+//                }
+//            }, 0, 1000);
 
         }
     }
@@ -327,7 +327,7 @@ public class NetworkUtil {
 
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            waitDialog.dismiss();
+//            waitDialog.dismiss();
             //display if upload is success
             if(flag == 1){
                 NotificationUtil.makeAToast("Upload completed");
