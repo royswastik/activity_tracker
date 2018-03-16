@@ -23,6 +23,6 @@ public class Constants {
     public static final String DownloadDir = "/Android/Data/CSE535_ASSIGNMENT2_DOWN/";
 
     public static String getFullDownloadDir(){
-        return android.os.Environment.getExternalStorageDirectory() +"/"+ DownloadDir;
+        return android.os.Environment.getExternalStorageDirectory() + DownloadDir;
     }
 }

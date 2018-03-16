@@ -1,5 +1,6 @@
 package com.example.android.group4.ui;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.example.android.group4.utils.NotificationUtil;
 import com.example.android.group4.utils.SharedPreferenceUtil;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -38,7 +40,7 @@ public class PartAActivity extends AppCompatActivity {
     GraphView graph;
 
     int timercount = 0;
-
+    ViewHolder holder;
 
 
     @Override
@@ -49,6 +51,9 @@ public class PartAActivity extends AppCompatActivity {
     }
 
     public void setup(){
+        holder = new ViewHolder(this);
+
+
         if(!checkPatientData()){
             return;
         }
@@ -60,6 +65,26 @@ public class PartAActivity extends AppCompatActivity {
         Log.v("Part A", "Service Initiated");
         NotificationUtil.makeAToast(this, "Database Instantiated");
         setupGraphInitial();
+        addListeners();
+    }
+
+    public void addListeners(){
+        holder.runBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graph.removeAllSeries();
+                graph.addSeries(series1);
+                graph.addSeries(series2);
+                graph.addSeries(series3);
+            }
+        });
+
+        holder.stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graph.removeAllSeries();
+            }
+        });
     }
 
     public void instantiateDatabase(){
@@ -125,9 +150,9 @@ public class PartAActivity extends AppCompatActivity {
         series2.appendData(new DataPoint(timercount,(int)accelerometerDatum.getY()), true, 40);
         series3.appendData(new DataPoint(timercount,(int)accelerometerDatum.getZ()), true, 40);
         timercount++;
-        graph.addSeries(series1);
-        graph.addSeries(series2);
-        graph.addSeries(series3);
+//        graph.addSeries(series1);
+//        graph.addSeries(series2);
+//        graph.addSeries(series3);
 
 
     }
@@ -162,26 +187,35 @@ public class PartAActivity extends AppCompatActivity {
         series1.setColor(Color.RED);
         series2.setColor(Color.GREEN);
         series3.setColor(Color.BLUE);
+        series1.setTitle("x");
+        series2.setTitle("y");
+        series3.setTitle("z");
 
-        graph.addSeries(series1);
-        graph.addSeries(series2);
-        graph.addSeries(series3);
+//        graph.addSeries(series1);
+//        graph.addSeries(series2);
+//        graph.addSeries(series3);
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
         graph.getViewport().setMaxX(10);
         graph.getGridLabelRenderer().setLabelVerticalWidth(60);
 
+        graph.getLegendRenderer().setVisible(true);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+
         GridLabelRenderer gridLabel;
         gridLabel = graph.getGridLabelRenderer();
-        gridLabel.setHorizontalAxisTitle("Time stamp");
+        gridLabel.setHorizontalAxisTitle("Time(in secs)");
         gridLabel.setVerticalAxisTitle("Accelerometer values");
 
     }
 
     static class ViewHolder{
-        GraphView graphView;
-
+        Button runBtn, stopBtn;
+        ViewHolder(Activity activity){
+            runBtn = (Button)activity.findViewById(R.id.run_graph);
+            stopBtn = (Button) activity.findViewById(R.id.stop_graph);
+        }
     }
 
 }

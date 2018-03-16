@@ -6,46 +6,78 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.android.group4.ui.PartAActivity">
-    <Button
-        android:id="@+id/fill_patient_data_btn"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fill Patient Data"/>
-
-    <!--TODO - Add patient information here-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal">
-        <TextView
-            android:text="ID"
-            android:layout_weight="1"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/pId"
-            android:textSize="16sp"
-            android:padding="1sp" />
-        <TextView
-            android:text="Name"
-            android:layout_weight="4"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/patientName"
-            android:textSize="16sp" />
-        <TextView
-            android:layout_weight="1"
-            android:text="M"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:id="@+id/patientGender"
-            android:textSize="16sp"
-            android:padding="1sp" />
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/fill_patient_data_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fill Patient Data"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/graphA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                android:orientation="horizontal">
+                <TextView
+                    android:text="ID"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:id="@+id/pId"
+                    android:textSize="16sp"
+                    android:padding="1sp" />
+                <TextView
+                    android:text="Name"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:id="@+id/patientName"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_weight="1"
+                    android:text="M"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:id="@+id/patientGender"
+                    android:textSize="16sp"
+                    android:padding="1sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/run_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Run" />
+
+                <Button
+                    android:id="@+id/stop_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Stop" />
+
+            </LinearLayout>
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/graphA"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>

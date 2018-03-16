@@ -48,6 +48,8 @@ public class PartBActivity extends AppCompatActivity {
             @Override
             public void uploadComplete(int resultCode) {
                 resp_text.setText("Upload Complete");
+                progressBar.setVisibility(View.GONE);
+                progressBar.setProgress(100);
             }
 
             @Override

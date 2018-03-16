@@ -37,9 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.PartAActivity" />
+        <activity android:name=".ui.PartAActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.PartBActivity" />
-        <activity android:name=".ui.PartCActivity" />
+        <activity android:name=".ui.PartCActivity" android:screenOrientation="portrait" />
         <activity android:name=".ui.PatientInfoActivity"></activity>
 
         <receiver android:name=".receivers.DataReceiver">
