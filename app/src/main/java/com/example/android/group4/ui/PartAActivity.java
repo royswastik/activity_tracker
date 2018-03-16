@@ -9,6 +9,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +52,7 @@ public class PartAActivity extends AppCompatActivity {
         if(!checkPatientData()){
             return;
         }
+        fillPatientData();
         instantiateDatabase();
         Log.v("Part A", "Database Instantiated");
         NotificationUtil.makeAToast(this, "Database Instantiated");
@@ -116,8 +119,8 @@ public class PartAActivity extends AppCompatActivity {
 
     public void onReceiveData(AccelerometerDatum accelerometerDatum){
 
-        System.out.println(accelerometerDatum);
-        Toast.makeText(this, "On received Reached", Toast.LENGTH_LONG).show();
+//        System.out.println(accelerometerDatum);
+//        Toast.makeText(this, "On received Reached", Toast.LENGTH_LONG).show();
         series1.appendData(new DataPoint(timercount,(int)accelerometerDatum.getX()), true, 40);
         series2.appendData(new DataPoint(timercount,(int)accelerometerDatum.getY()), true, 40);
         series3.appendData(new DataPoint(timercount,(int)accelerometerDatum.getZ()), true, 40);
@@ -127,6 +130,20 @@ public class PartAActivity extends AppCompatActivity {
         graph.addSeries(series3);
 
 
+    }
+
+    public void fillPatientData(){
+        ((TextView) findViewById(R.id.pId)).setText(patient.getId());
+        ((TextView) findViewById(R.id.patientName)).setText(patient.getName());
+        ((TextView) findViewById(R.id.patientGender)).setText(patient.getSex());
+        ((Button) findViewById(R.id.fill_patient_data_btn)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PartAActivity.this, PatientInfoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

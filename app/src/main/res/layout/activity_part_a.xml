@@ -7,34 +7,40 @@
     android:orientation="vertical"
     tools:context="com.example.android.group4.ui.PartAActivity">
     <Button
-        android:id="@+id/download_btn"
+        android:id="@+id/fill_patient_data_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Change Patient Information"/>
+        android:text="Fill Patient Data"/>
 
     <!--TODO - Add patient information here-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="horizontal">
-        <!--<TextView-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@id/pId"-->
-            <!--android:textSize="16sp"-->
-            <!--android:padding="1sp" />-->
-        <!--<TextView-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@id/patientName"-->
-            <!--android:textSize="16sp"-->
-            <!--android:padding="1sp" />-->
-        <!--<TextView-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@id/patientGender"-->
-            <!--android:textSize="16sp"-->
-            <!--android:padding="1sp" />-->
+        <TextView
+            android:text="ID"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:id="@+id/pId"
+            android:textSize="16sp"
+            android:padding="1sp" />
+        <TextView
+            android:text="Name"
+            android:layout_weight="4"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:id="@+id/patientName"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_weight="1"
+            android:text="M"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:id="@+id/patientGender"
+            android:textSize="16sp"
+            android:padding="1sp" />
 
     </LinearLayout>
 

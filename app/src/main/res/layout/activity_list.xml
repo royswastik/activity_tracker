@@ -7,6 +7,14 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     tools:context="com.example.android.group4.ui.ListActivity">
+
+    <TextView
+        android:textSize="36sp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Group 4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/part_a"
         android:text="Part A"
