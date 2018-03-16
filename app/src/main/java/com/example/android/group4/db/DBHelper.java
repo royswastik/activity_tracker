@@ -90,7 +90,10 @@ public class DBHelper {
         }
     }
 
-
+    public static List<AccelerometerDatum> getLast10SecondsDataForPatient(Patient patient){
+        //TODO
+        return null;
+    }
 
     public static File checkDBFolder(){
         File folder = new File(Environment.getExternalStorageDirectory() + baseDbDir);

@@ -12,4 +12,6 @@ public class PartCActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_part_c);
     }
+
+
 }
