@@ -1,11 +1,15 @@
 package com.example.android.group4.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * Created by sroy41 on 2/6/2018.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Patient implements Serializable {
 
 
@@ -55,7 +59,8 @@ public class Patient implements Serializable {
         this.acc_val = acc_val;
     }
 
-    public String get_table_name(){
+    @JsonIgnore
+    public String retrieve_table_name(){
         return name + "_" + id + "_" + age + "_" + sex;
     }
 }

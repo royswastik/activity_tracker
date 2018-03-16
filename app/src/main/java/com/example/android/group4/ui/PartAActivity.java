@@ -7,12 +7,14 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
 import com.example.android.group4.models.AccelerometerDatum;
 import com.example.android.group4.models.Patient;
 import com.example.android.group4.services.SensorHandlerService;
+import com.example.android.group4.utils.NotificationUtil;
 import com.example.android.group4.utils.SharedPreferenceUtil;
 import com.jjoe64.graphview.GraphView;
 
@@ -33,7 +35,11 @@ public class PartAActivity extends AppCompatActivity {
             return;
         }
         instantiateDatabase();
+        Log.v("Part A", "Database Instantiated");
+        NotificationUtil.makeAToast(this, "Database Instantiated");
         initiateService();
+        Log.v("Part A", "Service Initiated");
+        NotificationUtil.makeAToast(this, "Database Instantiated");
 
     }
 
@@ -42,6 +48,9 @@ public class PartAActivity extends AppCompatActivity {
     }
 
     public void initiateService(){
+        if(SensorHandlerService.isServiceRunning(this)){
+            return;
+        }
         SensorHandlerService.startService(this);
     }
 
@@ -66,7 +75,8 @@ public class PartAActivity extends AppCompatActivity {
         if(patient == null){
             //If Patient is not set
             Intent intent = new Intent(this, PatientInfoActivity.class);
-            startActivityForResult(intent, PATIENT_INFO_REQUEST);
+            startActivity(intent);
+            finish();
             return false;
         }
         return true;
@@ -87,7 +97,11 @@ public class PartAActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SensorHandlerService.stopService(this);
+    }
 
     public void setupGraphInitial(){
 

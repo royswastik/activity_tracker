@@ -1,5 +1,6 @@
 package com.example.android.group4.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,7 +78,15 @@ public class PatientInfoActivity extends AppCompatActivity {
             return;
         }
         SharedPreferenceUtil.saveCurrentPatient(patient);
-        setResult(RESULT_OK);
+        Intent intent = new Intent(PatientInfoActivity.this, PartAActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(PatientInfoActivity.this, ListActivity.class);
+        startActivity(intent);
         finish();
     }
 }

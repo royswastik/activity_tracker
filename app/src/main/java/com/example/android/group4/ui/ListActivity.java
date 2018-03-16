@@ -1,12 +1,14 @@
 package com.example.android.group4.ui;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.android.group4.R;
+import com.example.android.group4.helpers.PermissionHelper;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -16,6 +18,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        PermissionHelper.checkPermissions(this);
 
         partABtn = (Button) findViewById(R.id.part_a);
         partBBtn = (Button) findViewById(R.id.part_b);
@@ -44,5 +47,17 @@ public class ListActivity extends AppCompatActivity {
     private void openActivity(Class activity){
         Intent intent= new Intent(this, activity);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        if (requestCode == PermissionHelper.PERMISSION_REQUEST) {
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    finishAffinity();
+                }
+            }
+        }
     }
 }

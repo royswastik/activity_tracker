@@ -31,13 +31,13 @@ public class DBHelper {
 
         checkDBFolder();    //This creates the database folder if not created
         SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
-        if(isTableExists(patientData.get_table_name(), db)){
+        if(isTableExists(patientData.retrieve_table_name(), db)){
             return;
         }
         db.beginTransaction();
         try
         {
-                db.execSQL("CREATE TABLE " + patientData.get_table_name() +
+                db.execSQL("CREATE TABLE " + patientData.retrieve_table_name() +
                         "(" + Constants.KEY_TimeStamp + " BIGINT PRIMARY KEY, " + Constants.KEY_Xaxis + " INTEGER, " + Constants.KEY_Yaxis + " INTEGER, " + Constants.KEY_Zaxis + " INTEGER" + ")");
                 db.setTransactionSuccessful();
         }
@@ -79,7 +79,7 @@ public class DBHelper {
             values.put("KEY_Xaxis", accelerometerDatum.getX());
             values.put("KEY_Yaxis", accelerometerDatum.getY());
             values.put("KEY_Zaxis", accelerometerDatum.getZ());
-            db.insert(patient.get_table_name(), null, values);
+            db.insert(patient.retrieve_table_name(), null, values);
 
 
             db.setTransactionSuccessful();
