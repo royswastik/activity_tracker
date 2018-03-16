@@ -1,5 +1,7 @@
 package com.example.android.group4.services;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -79,4 +81,23 @@ public class SensorHandlerService extends Service  implements SensorEventListene
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_STICKY;
     }
+
+    public static boolean isServiceRunning(Activity activity) {
+        ActivityManager manager = (ActivityManager) activity.getSystemService(ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+            if("com.example.android.group4.services.SensorHandlerService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void stopService(Activity activity){
+        activity.stopService(new Intent(activity, SensorHandlerService.class));
+    }
+
+    public static void startService(Activity activity){
+        activity.startService(new Intent(activity, SensorHandlerService.class));
+    }
+
 }

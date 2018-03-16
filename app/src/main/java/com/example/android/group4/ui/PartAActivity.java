@@ -42,8 +42,7 @@ public class PartAActivity extends AppCompatActivity {
     }
 
     public void initiateService(){
-        Intent i = new Intent(this, SensorHandlerService.class);
-        startService(i);
+        SensorHandlerService.startService(this);
     }
 
     @Override
@@ -84,7 +83,11 @@ public class PartAActivity extends AppCompatActivity {
 
     public void onReceiveData(AccelerometerDatum accelerometerDatum){
 
+
+
     }
+
+
 
     public void setupGraphInitial(){
 
