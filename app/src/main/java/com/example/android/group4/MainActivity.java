@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -35,6 +36,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.android.group4.helpers.PermissionHelper;
+import com.example.android.group4.services.SensorHandlerService;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
@@ -115,6 +117,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         PermissionHelper.checkPermissions(this);
+
+        //Swastik - Start
+        startAccelerometerService();
+
+
+        //Swastik - End
 
         //Initializing graoh values
         xValues=new ArrayList<Float>();
@@ -312,6 +320,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 enableDisableEverything(false);
             }
         });
+    }
+
+    public void startAccelerometerService(){
+        Intent i = new Intent(this, SensorHandlerService.class);
+        startService(i);
     }
 
     @Override
