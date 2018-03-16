@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.android.group4.ui.PartCActivity">
+    <Button
+        android:id="@+id/download_btn"
+        android:drawableRight="@drawable/ic_cloud_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download Database"/>
+    <TextView
+        android:id="@+id/resp_msg"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Successfully Downloaded"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-</android.support.constraint.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
