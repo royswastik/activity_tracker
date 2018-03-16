@@ -12,7 +12,9 @@ import android.widget.Toast;
 import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
 import com.example.android.group4.models.AccelerometerDatum;
+import com.example.android.group4.models.Patient;
 import com.example.android.group4.utils.NetworkUtil;
+import com.example.android.group4.utils.SharedPreferenceUtil;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
@@ -49,13 +51,28 @@ public class PartCActivity extends AppCompatActivity {
     }
     public void setupGraphFinal(){
 
-//        List<AccelerometerDatum> accLst = DBHelper.getLast10SecondsDataForPatient();
+        Patient patient = SharedPreferenceUtil.getCurrentPatient();
+        List<AccelerometerDatum> accLst = DBHelper.getLast10SecondsDataForPatient(patient);
+
+        DataPoint[] x_values = new DataPoint[10];
+        DataPoint[] y_values = new DataPoint[10];
+        DataPoint[] z_values = new DataPoint[10];
+
+        int index = 0;
+        for(AccelerometerDatum acc: accLst){
+            DataPoint ds_x = new DataPoint(acc.getTimestamp(), acc.getX());
+            DataPoint ds_y = new DataPoint(acc.getTimestamp(), acc.getY());
+            DataPoint ds_z = new DataPoint(acc.getTimestamp(), acc.getZ());
+            x_values[index] = ds_x;
+            y_values[index] = ds_y;
+            z_values[index] = ds_z;
+        }
 
         Toast.makeText(this, "setup initial", Toast.LENGTH_LONG).show();
         graph = (GraphView) findViewById(R.id.graphC);
-        series1 = new LineGraphSeries<>();
-        series2 = new LineGraphSeries<>();
-        series3 = new LineGraphSeries<>();
+        series1 = new LineGraphSeries<>(x_values);
+        series2 = new LineGraphSeries<>(y_values);
+        series3 = new LineGraphSeries<>(z_values);
 
         series1.setColor(Color.RED);
         series2.setColor(Color.GREEN);

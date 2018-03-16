@@ -12,6 +12,7 @@ import com.example.android.group4.utils.Constants;
 import com.example.android.group4.utils.SharedPreferenceUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -92,7 +93,32 @@ public class DBHelper {
 
     public static List<AccelerometerDatum> getLast10SecondsDataForPatient(Patient patient){
         //TODO
-        return null;
+        SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+        List<AccelerometerDatum> accDataLst = new ArrayList<AccelerometerDatum>();
+
+
+            final String TABLE_NAME = patient.retrieve_table_name();
+            String selectQuery = "SELECT  * FROM " + TABLE_NAME + " ORDER BY KEY_TimeStamp LIMIT 10";
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            int count = 0;
+            if (cursor.moveToFirst())
+            {
+                do
+                {
+                    AccelerometerDatum acc = new AccelerometerDatum();
+                    acc.setTimestamp(count++);
+                    acc.setX(cursor.getLong(1));
+                    acc.setY(cursor.getLong(2));
+                    acc.setZ(cursor.getLong(3));
+
+                    accDataLst.add(acc);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+
+
+        return accDataLst;
     }
 
     public static File checkDBFolder(){
