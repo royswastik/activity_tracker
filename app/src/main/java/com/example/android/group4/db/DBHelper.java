@@ -1,6 +1,7 @@
 package com.example.android.group4.db;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
@@ -25,14 +26,18 @@ public class DBHelper {
     //Path where db to be created
     static String dbFilePath = baseDbDir+"/"+dbFileName;
 
-    public static void initDB(Patient patientData){
+    public static void initPatientTable(Patient patientData){
+
+
         checkDBFolder();    //This creates the database folder if not created
         SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+        if(isTableExists(patientData.get_table_name(), db)){
+            return;
+        }
         db.beginTransaction();
         try
         {
-            String tableName = patientData.getName() + "_" + patientData.getId() + "_" + patientData.getAge() + "_" + patientData.getSex();
-                db.execSQL("CREATE TABLE " + tableName +
+                db.execSQL("CREATE TABLE " + patientData.get_table_name() +
                         "(" + Constants.KEY_TimeStamp + " BIGINT PRIMARY KEY, " + Constants.KEY_Xaxis + " INTEGER, " + Constants.KEY_Yaxis + " INTEGER, " + Constants.KEY_Zaxis + " INTEGER" + ")");
                 db.setTransactionSuccessful();
         }
@@ -44,6 +49,21 @@ public class DBHelper {
         {
             db.endTransaction();
         }
+    }
+
+    public static boolean isTableExists(String tableName, SQLiteDatabase db) //Checks for table
+    {
+        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+        if(cursor!=null)
+        {
+            if(cursor.getCount()>0)
+            {
+                cursor.close();
+                return true;
+            }
+            cursor.close();
+        }
+        return false;
     }
 
 

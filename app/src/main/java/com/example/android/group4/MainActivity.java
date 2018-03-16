@@ -66,9 +66,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public int patientId, patientAge, sexValue;
     public String patientName, patientSex;
 
-    //EditText inputs
-    EditText idValue, ageValue, nameString;
-    RadioGroup sexGroup;
+
 
     //Buttons
     Button runButton, stopButton, uploadButton, downloadButton;
@@ -118,11 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         PermissionHelper.checkPermissions(this);
 
-        //Swastik - Start
-        startAccelerometerService();
 
-
-        //Swastik - End
 
         //Initializing graoh values
         xValues=new ArrayList<Float>();
@@ -135,11 +129,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         uploadButton = (Button) findViewById(R.id.upload_data);
         downloadButton = (Button) findViewById(R.id.download_data);
 
-        //Getting patient data
-        idValue = (EditText) findViewById(R.id.patient_id);
-        ageValue = (EditText) findViewById(R.id.patient_age);
-        nameString = (EditText) findViewById(R.id.patient_name);
-        sexGroup = (RadioGroup) findViewById(R.id.patient_sex);
 
         stopButton.setEnabled(false);
 
@@ -172,65 +161,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         gridLabel.setHorizontalAxisTitle("Time stamp");
         gridLabel.setVerticalAxisTitle("Accelerometer values");
 
-        //Converting user inputs
-        idValue.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int j, int k) {}
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int j, int k)
-            {
-//                idValue.setInputType(InputType.TYPE_CLASS_TEXT);
-                patientId = Integer.parseInt(idValue.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-
-        ageValue.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int j, int k) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int j, int k)
-            {
-//                ageValue.setInputType(InputType.TYPE_CLASS_NUMBER);
-                patientAge = Integer.parseInt(ageValue.getText().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-
-        nameString.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int j, int k) { }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int j, int k)
-            {
-                nameString.setInputType(InputType.TYPE_CLASS_TEXT);
-                patientName = nameString.getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) { }
-        });
-
-        sexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i)
-            {
-                sexValue = radioGroup.getCheckedRadioButtonId();
-                RadioButton rd = (RadioButton) findViewById(sexValue);
-                patientSex = rd.getText().toString();
-            }
-        });
 
         runButton.setOnClickListener(new View.OnClickListener() //Run button Click listener
         {
@@ -322,10 +253,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
     }
 
-    public void startAccelerometerService(){
-        Intent i = new Intent(this, SensorHandlerService.class);
-        startService(i);
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
@@ -339,95 +267,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    //Accelerometer
-    public void onSensorChanged(SensorEvent sensorEvent) //Accelerometer sensor for change in values
-    {
-        Sensor mySensor = sensorEvent.sensor;
 
-        if(clearEditTexts)
-        {
-            clearEditTexts=false;
-            enableDisableEverything(true);
-            stopButton.setEnabled(false);
 
-            RadioButton maleRadioButton, femaleRadioButton;
-            maleRadioButton = (RadioButton) findViewById(R.id.sex_male);
-            femaleRadioButton = (RadioButton) findViewById(R.id.sex_female);
 
-            nameString.setText("");
-            idValue.setText(0);
-            ageValue.setText(0);
-            maleRadioButton.setChecked(true);
-            femaleRadioButton.setChecked(false);
-        }
-
-        if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER && flag_sense && isRunning && !tableExistCheck)
-        {
-            float x = sensorEvent.values[0];
-            float y = sensorEvent.values[1];
-            float z = sensorEvent.values[2];
-
-            long curTime = System.currentTimeMillis();
-
-            if ((curTime - lastUpdate) > 1000 && secCounter<11)
-            {
-                lastUpdate = curTime;
-
-                last_x = x;
-                last_y = y;
-                last_z = z;
-
-                try
-                {
-                    ContentValues values = new ContentValues();
-                    values.put("KEY_TimeStamp", System.currentTimeMillis());
-                    values.put("KEY_Xaxis", last_x);
-                    values.put("KEY_Yaxis", last_y);
-                    values.put("KEY_Zaxis", last_z);
-                    db.beginTransaction();
-                    db.insert(patientName + "_" + patientId + "_" + patientAge + "_" + patientSex, null, values);
-                    db.setTransactionSuccessful();
-                } catch (SQLiteException e) {
-                    e.printStackTrace();
-                } finally {
-                    db.endTransaction();
-                }
-
-                secCounter++;
-            }
-            else if(secCounter>=11)
-            {
-                Toast.makeText(MainActivity.this, "Table Created!", Toast.LENGTH_SHORT).show();
-                enableDisableEverything(true);
-                runButton.setEnabled(false);
-                stopButton.setEnabled(true);
-                downloadButton.setEnabled(false);
-                flag_sense = false;
-                getDataFromdb();
-                dataStoredInDB=true;
-                onResume();
-            }
-        }
-        else if(tableExistCheck && !tableExistCheck_onSensorChanged)
-        {
-            tableExistCheck_onSensorChanged=true;
-
-            Toast.makeText(MainActivity.this, "Table Exists!!", Toast.LENGTH_SHORT).show();
-            enableDisableEverything(true);
-            runButton.setEnabled(false);
-            stopButton.setEnabled(true);
-            downloadButton.setEnabled(false);
-            flag_sense = false;
-            getDataFromdb();
-            dataStoredInDB=true;
-            onResume();
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
 
     public void resetTheGraph()
     {
@@ -453,23 +295,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         graph2LastXValue=0d;
     }
 
-    public void enableDisableEverything(boolean flag) //Enabler/Disabler
-    {
-        idValue.setEnabled(flag);
-        nameString.setEnabled(flag);
-        ageValue.setEnabled(flag);
 
-        runButton.setEnabled(flag);
-        stopButton.setEnabled(flag);
-        uploadButton.setEnabled(flag);
-        downloadButton.setEnabled(flag);
-
-        RadioButton maleRadioButton, femaleRadioButton;
-        maleRadioButton = (RadioButton) findViewById(R.id.sex_male);
-        femaleRadioButton = (RadioButton) findViewById(R.id.sex_female);
-        maleRadioButton.setEnabled(flag);
-        femaleRadioButton.setEnabled(flag);
-    }
 
     protected void onPause()
     {
@@ -536,104 +362,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         cursor.close();
     }
 
-    public boolean isTableExists(String tableName) //Checks for table
-    {
-        Cursor cursor = db.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
-        if(cursor!=null)
-        {
-            if(cursor.getCount()>0)
-            {
-                cursor.close();
-                return true;
-            }
-            cursor.close();
-        }
-        return false;
-    }
 
-    public boolean tablenamecreator()
-    {
-        if(patientName!=null && !patientName.equalsIgnoreCase(""))
-        {
-            if(patientId != '\0')
-            {
-                if(patientAge != '\0')
-                {
-                    if(patientSex!=null)
-                    {
-                        try
-                        {
-                            File folder = new File(Environment.getExternalStorageDirectory() + baseDbDir);
-                            boolean success = true;
-                            if (!folder.exists())
-                            {
-                                success = folder.mkdirs();
-                            }
-                            if (success)
-                            {
 
-                            }
-                            else
-                            {
 
-                            }
-                            db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + baseDbDir + "/" + fileName, null);
-                            db.beginTransaction();
-                            try
-                            {
-                                tableName = patientName + "_" + patientId + "_" + patientAge + "_" + patientSex;
-                                tableExistCheck = isTableExists(tableName);
-                                if(!tableExistCheck)
-                                {
-                                    db.execSQL("CREATE TABLE " + patientName + "_" + patientId + "_" + patientAge + "_" + patientSex +
-                                            "(" + KEY_TimeStamp + " BIGINT PRIMARY KEY, " + KEY_Xaxis + " INTEGER, " + KEY_Yaxis + " INTEGER, " + KEY_Zaxis + " INTEGER" + ")");
-                                    db.setTransactionSuccessful();
-                                }
-                                flag_sense = true;
-                            }
-                            catch (SQLiteException e)
-                            {
-                                Toast.makeText(MainActivity.this, "SQLiteException" + e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                            finally
-                            {
-                                db.endTransaction();
-                            }
-                        }
-                        catch (SQLException e)
-                        {
-
-                        }
-                        return true;
-                    }
-                    else
-                    {
-                        sexGroup.requestFocus();
-                        Toast.makeText(MainActivity.this, "Please select your sex", Toast.LENGTH_SHORT).show();
-                        return false;
-                    }
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Please enter your age", Toast.LENGTH_SHORT).show();
-                    ageValue.requestFocus();
-                    return false;
-                }
-            }
-            else
-            {
-                Toast.makeText(MainActivity.this, "Please enter patient ID", Toast.LENGTH_SHORT).show();
-                idValue.requestFocus();
-                return false;
-            }
-        }
-        else
-        {
-            Toast.makeText(MainActivity.this, "Please enter patient name", Toast.LENGTH_SHORT).show();
-            nameString.requestFocus();
-            return false;
-        }
-    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

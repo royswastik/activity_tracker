@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
@@ -16,8 +15,6 @@ import com.example.android.group4.models.Patient;
 import com.example.android.group4.services.SensorHandlerService;
 import com.example.android.group4.utils.SharedPreferenceUtil;
 import com.jjoe64.graphview.GraphView;
-
-import java.io.Serializable;
 
 public class PartAActivity extends AppCompatActivity {
 
@@ -41,7 +38,7 @@ public class PartAActivity extends AppCompatActivity {
     }
 
     public void instantiateDatabase(){
-        DBHelper.initDB(patient);
+        DBHelper.initPatientTable(patient);
     }
 
     public void initiateService(){

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.android.group4.R;
 import com.example.android.group4.models.Patient;
@@ -48,7 +49,33 @@ public class PatientInfoActivity extends AppCompatActivity {
         });
     }
 
+    public boolean isValidated(){
+        if(idValue.getText().toString().length() == 0 || idValue.getText().toString().isEmpty()){
+            Toast.makeText(PatientInfoActivity.this, "Please select your id", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(ageValue.getText().toString().length() == 0 || ageValue.getText().toString().isEmpty()){
+            Toast.makeText(PatientInfoActivity.this, "Please select your age", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(nameString.getText().toString().length() == 0 || nameString.getText().toString().isEmpty()){
+            Toast.makeText(PatientInfoActivity.this, "Please select your name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        int sexValue = sexGroup.getCheckedRadioButtonId();
+        RadioButton rd = (RadioButton) findViewById(sexValue);
+        String patientSex = rd.getText().toString();
+        if(patientSex.toString().length() == 0 || patientSex.toString().isEmpty()){
+            Toast.makeText(PatientInfoActivity.this, "Please select your sex", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
     public void savePatientData(Patient patient){
+        if(!isValidated()){
+            return;
+        }
         SharedPreferenceUtil.saveCurrentPatient(patient);
         setResult(RESULT_OK);
         finish();
