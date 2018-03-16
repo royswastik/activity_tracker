@@ -1,15 +1,23 @@
 package com.example.android.group4.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
+import com.example.android.group4.models.AccelerometerDatum;
 import com.example.android.group4.models.Patient;
 import com.example.android.group4.services.SensorHandlerService;
 import com.example.android.group4.utils.SharedPreferenceUtil;
 import com.jjoe64.graphview.GraphView;
+
+import java.io.Serializable;
 
 public class PartAActivity extends AppCompatActivity {
 
@@ -53,6 +61,8 @@ public class PartAActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         checkPatientData();
+        IntentFilter filter = new IntentFilter(SensorHandlerService.ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(dataReceiver, filter);
     }
 
     public boolean checkPatientData(){
@@ -64,6 +74,19 @@ public class PartAActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    // Define the callback for what to do when data is received
+    private BroadcastReceiver dataReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AccelerometerDatum accelerometerDatum = (AccelerometerDatum) intent.getSerializableExtra("data");
+            onReceiveData(accelerometerDatum);
+        }
+    };
+
+    public void onReceiveData(AccelerometerDatum accelerometerDatum){
+
     }
 
     public void setupGraphInitial(){

@@ -1,5 +1,6 @@
 package com.example.android.group4.db;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
@@ -7,8 +8,10 @@ import android.util.Log;
 
 import com.example.android.group4.models.*;
 import com.example.android.group4.utils.Constants;
+import com.example.android.group4.utils.SharedPreferenceUtil;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by jaydeep on 3/15/18.
@@ -42,6 +45,32 @@ public class DBHelper {
             db.endTransaction();
         }
     }
+
+
+    public static void insertAccelerometerData(AccelerometerDatum accelerometerDatum){
+        Patient patient = SharedPreferenceUtil.getCurrentPatient();
+        SQLiteDatabase db =  SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+
+        try
+        {
+            db.beginTransaction();
+            ContentValues values = new ContentValues();
+            values.put("KEY_TimeStamp", accelerometerDatum.getTimestamp());
+            values.put("KEY_Xaxis", accelerometerDatum.getX());
+            values.put("KEY_Yaxis", accelerometerDatum.getY());
+            values.put("KEY_Zaxis", accelerometerDatum.getZ());
+            db.insert(patient.get_table_name(), null, values);
+
+
+            db.setTransactionSuccessful();
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
+
 
     public static File checkDBFolder(){
         File folder = new File(Environment.getExternalStorageDirectory() + baseDbDir);

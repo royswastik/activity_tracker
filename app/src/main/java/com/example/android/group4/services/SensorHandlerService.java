@@ -11,6 +11,9 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.android.group4.db.DBHelper;
+import com.example.android.group4.models.AccelerometerDatum;
+
 import java.text.SimpleDateFormat;
 
 public class SensorHandlerService extends Service  implements SensorEventListener {
@@ -20,13 +23,13 @@ public class SensorHandlerService extends Service  implements SensorEventListene
     private SensorManager accelManage;
     private Sensor senseAccel;
 
+    public static final String ACTION = "com.example.android.group4.services.SensorHandlerService";
+
     public SensorHandlerService() {
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -46,13 +49,15 @@ public class SensorHandlerService extends Service  implements SensorEventListene
             if ((curTime - lastUpdate) > 1000) {
                 lastUpdate = curTime;
                 Log.v("service", "data: "+sdf.format(time_stamp) + "  x:" + x + "  y:"+y + "  z:" + z);
+                AccelerometerDatum accelerometerDatum = new AccelerometerDatum();
+                accelerometerDatum.setTimestamp(time_stamp);
+                accelerometerDatum.setX(x);
+                accelerometerDatum.setY(y);
+                accelerometerDatum.setZ(z);
+                DBHelper.insertAccelerometerData(accelerometerDatum);
+
             }
 
-        /* if(index >= 127){
-                index = 0;
-                accelManage.unregisterListener(this);
-                accelManage.registerListener(this, senseAccel, SensorManager.SENSOR_DELAY_NORMAL);
-            }*/
         }
     }
 

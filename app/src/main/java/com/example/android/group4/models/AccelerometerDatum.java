@@ -1,7 +1,9 @@
 package com.example.android.group4.models;
 
+import java.io.Serializable;
+
 //setters and getters to set and get the x,y,z and timestamp values from the accelerometer
-public class AccelerometerDatum {
+public class AccelerometerDatum implements Serializable{
 
     private long timestamp;
     private float x;

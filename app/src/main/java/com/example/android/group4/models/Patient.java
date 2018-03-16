@@ -54,4 +54,8 @@ public class Patient implements Serializable {
     public void setAcc_val(ArrayList<AccelerometerDatum> acc_val) {
         this.acc_val = acc_val;
     }
+
+    public String get_table_name(){
+        return name + "_" + id + "_" + age + "_" + sex;
+    }
 }
