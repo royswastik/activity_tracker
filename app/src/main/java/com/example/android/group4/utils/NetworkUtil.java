@@ -58,88 +58,88 @@ public class NetworkUtil {
         void uploadFailed(int resultCode);
     }
 
-//    private static class AsyncDownloadFile extends AsyncTask<Void, String, Void>  //returns exception strings to onProgressUpdate
-//    {
-//        boolean flag = false;   //flag to check for any exception
-//        ProgressDialog waitDialog;  //progress dialog to disable activity during download
-//
-//        AsyncDownloadFile(IDownloaderListener mListener){
-//
-//        }
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-////            waitDialog = ProgressDialog.show(MainActivity.this,"","Wait until download finishes",true);
-//        }
-//
-//        protected Void doInBackground(Void... params) {
-//            try {
-//                File downloadedFile1 = new File(android.os.Environment.getExternalStorageDirectory(), Constants.DownloadDir);   //create SD path based on device with /CSE535_ASSIGNMENT2_Extra/ folder
-//                if(!downloadedFile1.isDirectory())
-//                    downloadedFile1.mkdir();    //create directory if none exists
-//
-//
-//                URL urlPath = new URL(Constants.SERVER_DB_PATH);  //create URL object of server path
-//                HttpURLConnection urlConnect = (HttpURLConnection) urlPath.openConnection();    //create object to establish http connection
-//                int contentLength = urlConnect.getContentLength();  //get length of the file to be downloaded
-//                DataInputStream iStream = new DataInputStream(urlPath.openStream());    //new input stream to save buffer of downloaded file
-//                byte[] buffer = new byte[contentLength];    //buffer size is size of file
-//                //System.out.println(contentLength);
-//
-//                int length;
-//
-//                File downloadedFile = new File(downloadedFile1, DBHelper.dbFileName);  //create complete path for file
-//                FileOutputStream fStream = new FileOutputStream(downloadedFile);    //output stream to write from buffer and save as file
-//                DataOutputStream oStream = new DataOutputStream(fStream);
-//
-//                //transfer from input stream to output stream using buffer
-//                while ((length = iStream.read(buffer)) != -1) {
-//                    oStream.write(buffer, 0, length);
-//                }
-//
-//                //close streams
-//                iStream.close();
-//                oStream.flush();
-//                oStream.close();
-//            }
-//
-//            catch (FileNotFoundException e)
-//            {
-//                flag = true;    //flag true if there is exception
-//                System.out.println(e.getMessage());
-//                publishProgress(e.getMessage());
-//            }
-//            catch (MalformedURLException e)
-//            {
-//                flag = true;
-//                publishProgress(e.getMessage());
-//                e.printStackTrace();
-//            }
-//            catch (IOException e)
-//            {
-//                flag = true;
-//                publishProgress(e.getMessage());
-//            }
-//            return null;
-//        }
-//
-//        protected void onProgressUpdate(String... value) {
-//            super.onProgressUpdate(value);
-//            //show message if there exception flag is set
-//            if(flag)
-//                NotificationUtil.makeAToast("ERROR:  "+value[0]);
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid)
-//        {
-//            super.onPostExecute(aVoid);
-//            waitDialog.dismiss();   //remove dialog after download completes
-//
-//            //show message if download is successful
-//            if(!flag)
-//                Toast.makeText(MainActivity.this, "Download completed", Toast.LENGTH_SHORT).show();
+    private static class AsyncDownloadFile extends AsyncTask<Void, String, Void>  //returns exception strings to onProgressUpdate
+    {
+        boolean flag = false;   //flag to check for any exception
+        ProgressDialog waitDialog;  //progress dialog to disable activity during download
+
+        AsyncDownloadFile(IDownloaderListener mListener){
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            waitDialog = ProgressDialog.show(MainActivity.this,"","Wait until download finishes",true);
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                File downloadedFile1 = new File(android.os.Environment.getExternalStorageDirectory(), Constants.DownloadDir);   //create SD path based on device with /CSE535_ASSIGNMENT2_Extra/ folder
+                if(!downloadedFile1.isDirectory())
+                    downloadedFile1.mkdir();    //create directory if none exists
+
+
+                URL urlPath = new URL(Constants.SERVER_DB_PATH);  //create URL object of server path
+                HttpURLConnection urlConnect = (HttpURLConnection) urlPath.openConnection();    //create object to establish http connection
+                int contentLength = urlConnect.getContentLength();  //get length of the file to be downloaded
+                DataInputStream iStream = new DataInputStream(urlPath.openStream());    //new input stream to save buffer of downloaded file
+                byte[] buffer = new byte[contentLength];    //buffer size is size of file
+                //System.out.println(contentLength);
+
+                int length;
+
+                File downloadedFile = new File(downloadedFile1, DBHelper.dbFileName);  //create complete path for file
+                FileOutputStream fStream = new FileOutputStream(downloadedFile);    //output stream to write from buffer and save as file
+                DataOutputStream oStream = new DataOutputStream(fStream);
+
+                //transfer from input stream to output stream using buffer
+                while ((length = iStream.read(buffer)) != -1) {
+                    oStream.write(buffer, 0, length);
+                }
+
+                //close streams
+                iStream.close();
+                oStream.flush();
+                oStream.close();
+            }
+
+            catch (FileNotFoundException e)
+            {
+                flag = true;    //flag true if there is exception
+                System.out.println(e.getMessage());
+                publishProgress(e.getMessage());
+            }
+            catch (MalformedURLException e)
+            {
+                flag = true;
+                publishProgress(e.getMessage());
+                e.printStackTrace();
+            }
+            catch (IOException e)
+            {
+                flag = true;
+                publishProgress(e.getMessage());
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(String... value) {
+            super.onProgressUpdate(value);
+            //show message if there exception flag is set
+            if(flag)
+                NotificationUtil.makeAToast("ERROR:  "+value[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid)
+        {
+            super.onPostExecute(aVoid);
+            waitDialog.dismiss();   //remove dialog after download completes
+
+            //show message if download is successful
+            if(!flag)
+                NotificationUtil.makeAToast("Download completed");
 //
 //            db1 = SQLiteDatabase.openOrCreateDatabase(android.os.Environment.getExternalStorageDirectory() + downloadDir + fileName, null);
 //            db1.beginTransaction();
@@ -224,9 +224,9 @@ public class NetworkUtil {
 //                    }
 //                }
 //            }, 0, 1000);
-//
-//        }
-//    }
+
+        }
+    }
 
 
     //Upload
