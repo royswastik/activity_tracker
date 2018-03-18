@@ -41,6 +41,7 @@ public class PartAActivity extends AppCompatActivity {
 
     int timercount = 0;
     ViewHolder holder;
+    boolean isRunning = false;
 
 
     @Override
@@ -72,17 +73,28 @@ public class PartAActivity extends AppCompatActivity {
         holder.runBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(isRunning){
+                    NotificationUtil.makeAToast(PartAActivity.this, "Already Running");
+                    return;
+                }
                 graph.removeAllSeries();
                 graph.addSeries(series1);
                 graph.addSeries(series2);
                 graph.addSeries(series3);
+                isRunning = true;
             }
         });
 
         holder.stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!isRunning){
+                    NotificationUtil.makeAToast(PartAActivity.this, "Already Stopped");
+                    return;
+                }
                 graph.removeAllSeries();
+                isRunning = false;
             }
         });
     }
