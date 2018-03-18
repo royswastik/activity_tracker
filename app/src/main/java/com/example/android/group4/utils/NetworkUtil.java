@@ -9,7 +9,6 @@ import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.example.android.group4.MainActivity;
 import com.example.android.group4.R;
 import com.example.android.group4.db.DBHelper;
 import com.example.android.group4.models.AccelerometerDatum;
@@ -29,9 +28,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by jaydeep on 3/15/18.
- */
+
 
 public class NetworkUtil {
 

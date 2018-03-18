@@ -5,10 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-/**
- * Created by jaydeep on 3/15/18.
- */
-
 public class Group4App extends Application {
     private static Context appContext;
 

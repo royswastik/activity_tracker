@@ -1,10 +1,8 @@
 package com.example.android.group4.utils;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 
 import com.example.android.group4.Group4App;
-import com.example.android.group4.PatientData;
 import com.example.android.group4.models.Patient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
