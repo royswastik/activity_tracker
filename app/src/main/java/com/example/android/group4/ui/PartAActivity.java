@@ -213,7 +213,8 @@ public class PartAActivity extends AppCompatActivity {
         graph.getGridLabelRenderer().setLabelVerticalWidth(60);
 
         graph.getLegendRenderer().setVisible(true);
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.BOTTOM);
+        graph.getLegendRenderer().setFixedPosition(0, 0);
 
         GridLabelRenderer gridLabel;
         gridLabel = graph.getGridLabelRenderer();
