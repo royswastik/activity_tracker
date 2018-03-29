@@ -8,10 +8,65 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="group4.swastikroy.com.heart_rate_monitor_demo.MainActivity">
+    tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.MainActivity">
 
     <TextView
+        android:id="@+id/textView_splash_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:gravity="center|top"
+        android:text="@string/health_monitoring"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/splash_title_size"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_trainsvm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/clearBtn"
+        android:layout_below="@+id/clearBtn"
+        android:layout_marginTop="13dp"
+        android:text="@string/train_svm"
+        android:layout_alignLeft="@+id/clearBtn" />
+
+    <Button
+        android:id="@+id/collect_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_trainsvm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="@string/collect_data" />
+
+    <TextView
+        android:id="@+id/AccuracyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/clearBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_splash_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Clear Data" />
+
+    <Button
+        android:id="@+id/showGraphButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/clearBtn"
+        android:layout_below="@+id/collect_btn"
+        android:layout_marginTop="13dp"
+        android:text="Show Graph"
+        android:layout_alignRight="@+id/clearBtn" />
 </RelativeLayout>
