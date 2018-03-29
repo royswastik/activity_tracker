@@ -29,10 +29,6 @@
         android:layout_marginTop="43dp"
         android:checked="true"
         android:text="Jump"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/checkBoxWalk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/graphWebView"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="61dp" />
 
@@ -45,9 +41,6 @@
         android:layout_marginTop="43dp"
         android:checked="true"
         android:text="Walk"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxJump"
-        app:layout_constraintTop_toBottomOf="@+id/graphWebView"
         android:layout_marginLeft="60dp" />
 
     <CheckBox
@@ -59,8 +52,5 @@
         android:layout_marginTop="43dp"
         android:checked="true"
         android:text="Run"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBoxWalk"
-        app:layout_constraintTop_toBottomOf="@+id/graphWebView"
         android:layout_marginLeft="82dp" />
 </LinearLayout>
