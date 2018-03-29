@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".ui.DataCollectionActivity" />
         <activity android:name=".ui.DataVisualizationActivity" />
-        <activity android:name=".ui.ClassificationActivity"></activity>
+        <activity android:name=".ui.ClassificationActivity" />
+        <activity android:name=".ui.DataCollectionListActivity"></activity>
     </application>
 
 </manifest>

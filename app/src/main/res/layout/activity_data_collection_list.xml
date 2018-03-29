@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_data_collection_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.DataCollectionListActivity">
+    <TextView
+        android:id="@+id/textView_patient_info_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:text="@string/collection_option"
+        android:textSize="@dimen/data_activity_details_heading"
+        android:textStyle="bold"
+        android:layout_marginLeft="@dimen/activity_vertical_margin" />
+
+
+    <Button
+        android:id="@+id/jump_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/jump_button" />
+
+    <Button
+        android:id="@+id/walk_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/walk_button" />
+
+    <Button
+        android:id="@+id/run_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/run_button" />
+</LinearLayout>
