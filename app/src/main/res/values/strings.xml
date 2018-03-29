@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">heart_rate_monitor_demo</string>
+    <string name="app_name">Group 4</string>
+
+    <string name="health_monitoring">Health Monitoring</string>
+    <string name="train_svm">Train SVM</string>
+    <string name="collect_data">Collect Data</string>
+
+    <string name="collection_option">Collection Options</string>
+    <string name="run_button">Run</string>
+    <string name="walk_button">Walk</string>
+    <string name="jump_button">Jump</string>
+    <string name="title_activity_data">DataActivity</string>
+    <string name="title_activity_collect">CollectActivity</string>
+
+    <string name="data_collection_message">Collecting Your Data. Please wait...</string>
+
 </resources>
