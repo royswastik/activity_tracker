@@ -48,7 +48,7 @@ public class SVMUtil {
     private static List<AccelerometerAction> walkDataList = new ArrayList<AccelerometerAction>();
     private static List<AccelerometerAction> runDataList = new ArrayList<AccelerometerAction>();
 
-    public void setParameters() {
+    public void setHyperParameters() {
 
         param = new svm_parameter();
         // default values
@@ -240,7 +240,7 @@ public class SVMUtil {
 
     public String calculateAccuracy() {
 
-        setParameters();
+        setHyperParameters();
         try {
             extractData();
             read_problem();

@@ -33,11 +33,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        moveFile("/data/user/0/com.task3.mc.assignment3/databases/", "SVM");
-        moveFile("/data/data/com.task3.mc.assignment3/databases/", "SVM");
+        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
+        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
 
-        moveFile("/data/user/0/com.task3.mc.assignment3/databases/", "SVM-journal");
-        moveFile("/data/data/com.task3.mc.assignment3/databases/", "SVM-journal");
+        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
+        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
 
 
         setContentView(R.layout.activity_main);
