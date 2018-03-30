@@ -58,7 +58,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
     public void onSensorChanged(SensorEvent sensorEvent) {
         Log.d("count : " + count, "T");
         long curTime = System.currentTimeMillis();
-        if (count < 1000) {
+        if (count < 20) {
             Sensor mySensor = sensorEvent.sensor;
             if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                 float x = sensorEvent.values[0];
