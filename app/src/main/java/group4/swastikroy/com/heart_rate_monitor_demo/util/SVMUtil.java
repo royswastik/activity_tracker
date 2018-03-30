@@ -7,7 +7,6 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -17,7 +16,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 
-import group4.swastikroy.com.heart_rate_monitor_demo.db.DatabaseHandler;
+import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
 import libsvm.svm;
 import libsvm.svm_model;
@@ -35,10 +34,10 @@ public class SVMUtil {
     private svm_problem prob;
     private int cross_validation;
     private int nr_fold;
-    DatabaseHandler database;
+    DBHelper database;
     Context context;
 
-    public SVMUtil(DatabaseHandler database, Context context) {
+    public SVMUtil(DBHelper database, Context context) {
         this.database = database;
         this.context = context;
     }

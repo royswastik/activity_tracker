@@ -18,7 +18,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
 
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
 
     // All Static variables
@@ -42,7 +42,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static String DB_ABSOLUTE_PATH = "";
     Context context;
 
-    public DatabaseHandler(Context context) {
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

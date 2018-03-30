@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
-import group4.swastikroy.com.heart_rate_monitor_demo.db.DatabaseHandler;
+import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
 
 public class DataCollectionActivity extends AppCompatActivity implements SensorEventListener {
@@ -35,7 +35,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
 
     public static final int SENSOR_SAMPLING_RATE = 100000;
     public static final String TABLE_NAME = "accelerometer_data_table";
-    DatabaseHandler database = new DatabaseHandler(this);
+    DBHelper database = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

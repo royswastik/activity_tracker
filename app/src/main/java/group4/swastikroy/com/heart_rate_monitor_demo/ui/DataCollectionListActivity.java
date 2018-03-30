@@ -1,5 +1,6 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,45 +8,54 @@ import android.view.View;
 import android.widget.Button;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
+import group4.swastikroy.com.heart_rate_monitor_demo.util.ActivityUtil;
 
 public class DataCollectionListActivity extends AppCompatActivity {
 
-    private Button runButton, walkButton, jumpButton;
+    ViewHolder holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection_list);
+        addListeners();
+    }
 
-        runButton = (Button) findViewById(R.id.run_button);
-        walkButton = (Button) findViewById(R.id.walk_button);
-        jumpButton = (Button) findViewById(R.id.jump_button);
-
-        runButton.setOnClickListener(new View.OnClickListener() {
+    private void addListeners(){
+        holder.runButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent runActivityIntent = new Intent(DataCollectionListActivity.this, DataCollectionActivity.class);
-                runActivityIntent.putExtra("action", "RUN");
-                startActivity(runActivityIntent);
+                startCollectionActivity("RUN");
             }
         });
 
-        jumpButton.setOnClickListener(new View.OnClickListener() {
+        holder.jumpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent jumpActivityIntent = new Intent(DataCollectionListActivity.this, DataCollectionActivity.class);
-                jumpActivityIntent.putExtra("action", "JUMP");
-                startActivity(jumpActivityIntent);
+                startCollectionActivity("JUMP");
             }
         });
 
-        walkButton.setOnClickListener(new View.OnClickListener() {
+        holder.walkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent walkActivityIntent = new Intent(DataCollectionListActivity.this, DataCollectionActivity.class);
-                walkActivityIntent.putExtra("action", "WALK");
-                startActivity(walkActivityIntent);
+                startCollectionActivity("WALK");
             }
         });
+    }
+
+    private void startCollectionActivity(String action){
+        Bundle bundle = new Bundle();
+        bundle.putString("action", action);
+        ActivityUtil.openNewActivity(DataCollectionListActivity.this, DataCollectionActivity.class, bundle);
+    }
+
+    static class ViewHolder{
+        Button runButton, walkButton, jumpButton;
+        ViewHolder(Activity activity){
+            runButton = (Button) activity.findViewById(R.id.run_button);
+            walkButton = (Button) activity.findViewById(R.id.walk_button);
+            jumpButton = (Button) activity.findViewById(R.id.jump_button);
+        }
     }
 }

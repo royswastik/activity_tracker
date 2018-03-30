@@ -17,16 +17,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
-import group4.swastikroy.com.heart_rate_monitor_demo.db.DatabaseHandler;
+import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
-    public static final String TAG = "MAIN_ACTIVITY";
     private Button collectData;
     private Button trainSVM, clearDataBtn, showGraphButton;
     private TextView textView;
-    DatabaseHandler database = new DatabaseHandler(this);
+    DBHelper database = new DBHelper(this);
     public static final String TABLE_NAME = "accelerometer_data_table";
 
     @Override
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         collectData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dataActivityIntent = new Intent(MainActivity.this, DataCollectionListActivity.class);
+                Intent dataActivityIntent = new Intent(HomeActivity.this, DataCollectionListActivity.class);
                 startActivity(dataActivityIntent);
             }
         });
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONArray walk = database.getDataForGraph("WALK");
                 JSONArray run = database.getDataForGraph("RUN");
 
-                Intent loadGraphActivityIntent = new Intent(MainActivity.this, DataVisualizationActivity.class);
+                Intent loadGraphActivityIntent = new Intent(HomeActivity.this, DataVisualizationActivity.class);
 
                 loadGraphActivityIntent.putExtra("jump", String.valueOf(jump));
                 loadGraphActivityIntent.putExtra("walk", String.valueOf(walk));
