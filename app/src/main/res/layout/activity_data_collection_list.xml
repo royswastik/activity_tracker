@@ -11,31 +11,33 @@
     android:orientation="vertical"
     tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.DataCollectionListActivity">
     <TextView
-        android:id="@+id/textView_patient_info_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_vertical_margin"
-        android:text="@string/collection_option"
-        android:textSize="@dimen/data_activity_details_heading"
-        android:textStyle="bold"
-        android:layout_marginLeft="@dimen/activity_vertical_margin" />
-
-
+        android:clickable="false"
+        android:layout_marginTop="20dp"
+        android:text="Select Activity Type"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/jump_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/jump"
         android:text="@string/jump_button" />
 
     <Button
         android:id="@+id/walk_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/walk"
         android:text="@string/walk_button" />
 
     <Button
         android:id="@+id/run_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/run"
         android:text="@string/run_button" />
+
 </LinearLayout>

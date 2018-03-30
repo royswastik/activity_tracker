@@ -39,7 +39,8 @@
             android:id="@+id/clearBtn"
             android:drawableRight="@drawable/delete"
             android:text="Clear Data"
-            style="@style/HomeBtn"android:layout_width="0dp"
+            style="@style/HomeBtn"
+            android:layout_width="0dp"
             android:layout_weight="1"
             />
     </LinearLayout>

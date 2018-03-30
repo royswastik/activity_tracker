@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent dataActivityIntent = new Intent(HomeActivity.this, DataCollectionListActivity.class);
                 startActivity(dataActivityIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
