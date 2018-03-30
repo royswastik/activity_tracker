@@ -1,30 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:orientation="vertical"
+
 android:paddingLeft="@dimen/activity_vertical_margin"
 android:paddingRight="@dimen/activity_vertical_margin"
 android:paddingTop="@dimen/activity_horizontal_margin"
 tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.DataCollectionActivity"
 android:weightSum="1">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:text="Data Sample Count"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="36dp"
+                android:text="5"/>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#CCC"
+            />
+
+        <LinearLayout
+            android:id="@+id/countdown_container"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:text="Starting in"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/countdown"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:textSize="64dp"
+                android:gravity="center"
+                android:text="3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/collection_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:gravity="center"
+            android:visibility="visible"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textA="@style/TextAppearance.AppCompat.Medium"
+                android:gravity="center"
+                android:text="@string/data_collection_message"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:progress="2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
-<TextView
-    android:id="@+id/textMsg"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.03"
-    android:text="@string/data_collection_message"
-    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        style="@style/HomeBtn"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:text="COLLECT"
+        />
 
-<ProgressBar
-    android:id="@+id/progressBar"
-    style="?android:attr/progressBarStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="0.03" />
-
-</LinearLayout>
+</RelativeLayout>
 

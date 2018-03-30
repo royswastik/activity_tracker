@@ -52,6 +52,7 @@ public class DataCollectionListActivity extends AppCompatActivity {
     }
 
     private void startCollectionActivity(String action){
+
         Bundle bundle = new Bundle();
         bundle.putString("action", action);
         ActivityUtil.openNewActivity(DataCollectionListActivity.this, DataCollectionActivity.class, bundle);
