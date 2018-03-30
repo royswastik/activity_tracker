@@ -18,6 +18,7 @@ public class DataCollectionListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection_list);
+        holder = new ViewHolder(this);
         addListeners();
     }
 

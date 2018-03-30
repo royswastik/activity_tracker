@@ -1,5 +1,6 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -22,14 +23,14 @@ import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoin
 
 public class DataCollectionActivity extends AppCompatActivity implements SensorEventListener {
 
-    TextView textMsg;
-    ProgressBar progressBar;
+
 
     private int count = 0;
     private SensorManager senSensorManager;
     private Sensor senAccelerometer;
     private long lastUpdate = 0;
     private String actionType;
+    ViewHolder holder;
 
     private List<AccelerometerDataPoint> dataList = new ArrayList<AccelerometerDataPoint>();
 
@@ -42,9 +43,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection);
 
-        textMsg = (TextView) findViewById(R.id.textMsg);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        holder = new ViewHolder(this);
 
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -74,8 +73,8 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
                 }
             }
         } else {
-            progressBar.setVisibility(View.GONE);
-            textMsg.setText("Done Collecting Data");
+            holder.progressBar.setVisibility(View.GONE);
+            holder.textMsg.setText(R.string.data_collection_complete);
             senSensorManager.unregisterListener(this);
             writeToDB(dataList, actionType);
         }
@@ -102,5 +101,15 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
     protected void onResume() {
         super.onResume();
         senSensorManager.registerListener(this, senAccelerometer, SENSOR_SAMPLING_RATE);
+    }
+
+    static class ViewHolder{
+        TextView textMsg;
+        ProgressBar progressBar;
+        ViewHolder(Activity activity){
+            textMsg = (TextView) activity.findViewById(R.id.textMsg);
+            progressBar = (ProgressBar) activity.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -13,5 +13,6 @@
     <string name="title_activity_collect">CollectActivity</string>
 
     <string name="data_collection_message">Collecting Your Data. Please wait...</string>
+    <string name="data_collection_complete">Done Collecting Data</string>
 
 </resources>
