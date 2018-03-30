@@ -9,7 +9,7 @@
     <dimen name="row_padding">2dp</dimen>
 
     <!-- Splash screen dimens -->
-    <dimen name="splash_title_size">48sp</dimen>
+    <dimen name="splash_title_size">18sp</dimen>
     <dimen name="splash_button_margin_bottom">16dp</dimen>
 
     <!-- Patient info dimens -->

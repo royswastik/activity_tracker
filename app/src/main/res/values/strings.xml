@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Group 4</string>
 
-    <string name="health_monitoring">Health Monitoring</string>
+    <string name="intelligent_activity_tracker">Intelligent Activity Tracker</string>
     <string name="train_svm">Train SVM</string>
     <string name="collect_data">Collect Data</string>
 

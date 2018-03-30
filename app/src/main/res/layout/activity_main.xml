@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -8,40 +8,84 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.HomeActivity">
 
     <TextView
         android:id="@+id/textView_splash_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:clickable="false"
-        android:gravity="center|top"
-        android:text="@string/health_monitoring"
+        android:text="@string/intelligent_activity_tracker"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/heading_color"
         android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/collect_btn"
+            style="@style/HomeBtn"
+            android:drawableRight="@drawable/collect_data"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/collect_data" />
+        <Button
+            android:id="@+id/clearBtn"
+            android:drawableRight="@drawable/delete"
+            android:text="Clear Data"
+            style="@style/HomeBtn"android:layout_width="0dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="false"
+        android:text="Classification"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/button_trainsvm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/clearBtn"
-        android:layout_below="@+id/clearBtn"
-        android:layout_marginTop="13dp"
-        android:text="@string/train_svm"
-        android:layout_alignLeft="@+id/clearBtn" />
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/train"
+        android:text="@string/train_svm" />
 
-    <Button
-        android:id="@+id/collect_btn"
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_trainsvm"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:text="@string/collect_data" />
+        android:clickable="false"
+        android:layout_marginTop="20dp"
+        android:text="Graphical Visualization"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/showGraphButton"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/graph"
+        android:text="Data Visualization" />
+    <Button
+        android:id="@+id/showGraphPerformanceButton"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/graph"
+        android:text="Performance Visualization" />
 
     <TextView
         android:id="@+id/AccuracyTextView"
@@ -49,24 +93,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp" />
-
-    <Button
-        android:id="@+id/clearBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_splash_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:text="Clear Data" />
-
-    <Button
-        android:id="@+id/showGraphButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/clearBtn"
-        android:layout_below="@+id/collect_btn"
-        android:layout_marginTop="13dp"
-        android:text="Show Graph"
-        android:layout_alignRight="@+id/clearBtn" />
-</RelativeLayout>
+        android:layout_marginBottom="20dp" />
+</LinearLayout>
