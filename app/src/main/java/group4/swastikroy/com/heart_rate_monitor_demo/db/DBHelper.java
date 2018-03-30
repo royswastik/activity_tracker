@@ -11,9 +11,11 @@ import android.database.Cursor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
@@ -105,14 +107,14 @@ public class DBHelper {
 
 
 
-    public List<AccelerometerAction> getData(String activity) {
+    public List<AccelerometerAction> getData(String action) {
 
         List<AccelerometerAction> actionList = new ArrayList<>();
 
         db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
 
         try {
-            String query = "SELECT * FROM accelerometer_data_table WHERE action = '" + activity + "' LIMIT 1000;";
+            String query = "SELECT * FROM accelerometer_data_table WHERE action = '" + action + "' LIMIT 1000;";
 
             Cursor cursor = db.rawQuery(query, null);
 
@@ -131,6 +133,37 @@ public class DBHelper {
         return actionList;
     }
 
+    public static int getCount(String action) {
+
+
+
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+
+        try {
+            String query = "SELECT COUNT(*) FROM accelerometer_data_table WHERE action = '" + action + "' LIMIT 1000;";
+
+            Cursor cursor = db.rawQuery(query, null);
+            cursor.moveToFirst();
+            int result = cursor.getInt(0);
+            cursor.close();
+
+            return result/50;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("getData", "Error: .");
+        }
+
+
+        return 0;
+    }
+
+    public JSONArray getDataAsJson(String action) throws JSONException {
+        List<AccelerometerAction> data = getData(action);
+        JSONArray mJSONArray = new JSONArray(Arrays.asList(data));
+        return mJSONArray;
+    }
+
+
     private AccelerometerAction cursorToAA(Cursor cursor) {
         AccelerometerAction aa = new AccelerometerAction();
 
@@ -143,19 +176,21 @@ public class DBHelper {
         return aa;
     }
 
-    public JSONArray getDataForGraph(String activity) {
+    public JSONArray getDataForGraph(String action) {
 
-        List<AccelerometerAction> dataList = getData(activity);
+        List<AccelerometerAction> dataList = getData(action);
 
         JSONArray activities = new JSONArray();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             JSONArray jsonArray = new JSONArray();
             for (int j = 0; j < 3; j++) {
                 try {
-                    jsonArray.put(dataList.get((i * 1) + j).getX());
-                    jsonArray.put(dataList.get((i * 1) + j).getY());
-                    jsonArray.put(dataList.get((i * 1) + j).getZ());
+                    if(((i * 50) + j) < dataList.size()){
+                        jsonArray.put(dataList.get((i * 50) + j).getX());
+                        jsonArray.put(dataList.get((i * 50) + j).getY());
+                        jsonArray.put(dataList.get((i * 50) + j).getZ());
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -183,5 +218,30 @@ public class DBHelper {
 
     public static String getDBFilePath(){
         return android.os.Environment.getExternalStorageDirectory().toString() + dbFilePath;
+    }
+
+    public JSONObject cur2JsonObject(Cursor cursor, String keyColumn) throws JSONException {
+        JSONObject resultSet = new JSONObject();
+        cursor.moveToFirst();
+        while (cursor.isAfterLast() == false) {
+            int totalColumn = cursor.getColumnCount();
+            JSONObject rowObject = new JSONObject();
+            for (int i = 0; i < totalColumn; i++) {
+                if (cursor.getColumnName(i) != null) {
+                    try {
+                        rowObject.put(cursor.getColumnName(i),
+                                cursor.getString(i));
+                    } catch (Exception e) {
+                        Log.d("Cur2Json", e.getMessage());
+                    }
+                }
+            }
+            if(rowObject.has(keyColumn)){
+                resultSet.put(rowObject.getString(keyColumn), rowObject);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return resultSet;
     }
 }

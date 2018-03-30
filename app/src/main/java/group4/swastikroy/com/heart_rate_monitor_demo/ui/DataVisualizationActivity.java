@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
+import group4.swastikroy.com.heart_rate_monitor_demo.web.WebJavascriptInterface;
 
 public class DataVisualizationActivity extends AppCompatActivity {
 
@@ -55,6 +56,7 @@ public class DataVisualizationActivity extends AppCompatActivity {
                 webView.loadUrl("javascript:loadLines(" + run + "," + walk + "," + jump + ", true, true, true)");
             }
         });
+        webView.addJavascriptInterface(new WebJavascriptInterface(this, webView), "WebViewHandler");
         webView.loadUrl(URL);
 
         jumpCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
