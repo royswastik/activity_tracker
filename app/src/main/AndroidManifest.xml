@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +25,8 @@
         <activity android:name=".ui.DataCollectionActivity" />
         <activity android:name=".ui.DataVisualizationActivity" />
         <activity android:name=".ui.ClassificationActivity" />
-        <activity android:name=".ui.DataCollectionListActivity"></activity>
+        <activity android:name=".ui.DataCollectionListActivity" />
+        <activity android:name=".ui.PerformanceVisualizationActivity"></activity>
     </application>
 
 </manifest>
