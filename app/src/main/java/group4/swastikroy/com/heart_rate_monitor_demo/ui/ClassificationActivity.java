@@ -10,7 +10,6 @@ import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 public class ClassificationActivity extends AppCompatActivity {
 
     SVMUtil svmUtil;
-
     DBHelper dbHelper;
 
     @Override
@@ -30,3 +29,4 @@ public class ClassificationActivity extends AppCompatActivity {
 
     }
 }
+

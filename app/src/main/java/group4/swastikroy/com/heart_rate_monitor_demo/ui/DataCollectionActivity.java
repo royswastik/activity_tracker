@@ -22,6 +22,7 @@ import java.util.List;
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
 import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
+import group4.swastikroy.com.heart_rate_monitor_demo.util.ActionBarUtil;
 
 public class DataCollectionActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -57,6 +58,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
         actionType = intent.getStringExtra("action");
         holder = new ViewHolder(this);
         setup();
+//        ActionBarUtil.setBackButton(this);
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         senSensorManager.registerListener(this, senAccelerometer, SENSOR_SAMPLING_RATE);
@@ -154,6 +156,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
      * Called when countdown is over
      */
     private void countdown_done(){
+        holder.collection_msg.setText(getString(R.string.data_collection_message));
         collect_data();
     }
 
@@ -208,7 +211,7 @@ public class DataCollectionActivity extends AppCompatActivity implements SensorE
                 newData.setY(current_sensor_value.getY());
                 newData.setZ(current_sensor_value.getZ());
                 dataList.add(newData);
-                handler.postDelayed(this, (1000/sampling_frequency));
+                handler.postDelayed(this,(1000/sampling_frequency));
             }
             else{
                 on_collection_done();

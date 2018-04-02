@@ -49,6 +49,8 @@ public class PerformanceVisualizationActivity extends AppCompatActivity {
         progressDialog.hide();
     }
 
+
+
     public void drawGraph(List<PowerConsumption> dummy_health_data, GraphView graphView){
 
         dataPoints = new ArrayList<>();
@@ -64,6 +66,7 @@ public class PerformanceVisualizationActivity extends AppCompatActivity {
 
     private List<PowerConsumption> getTrainingPowerConsumption(){
         return null;    //TODO
+        //should return, power consumption vs time for dummy health data
     }
 
     private List<PowerConsumption> getTestPowerConsumption(){

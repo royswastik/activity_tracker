@@ -43,7 +43,7 @@ public class DBHelper {
     private static final String Y = "y";
     private static final String Z = "z";
     private static final String ACTION = "action";
-    private static String DB_ABSOLUTE_PATH = "";
+//    private static String DB_ABSOLUTE_PATH = "";
     Context context;
 
 
@@ -63,10 +63,10 @@ public class DBHelper {
 //        }
 //    }
 
-    public String getAbsPathToDb() throws SQLException {
-        DB_ABSOLUTE_PATH = db.getPath();
-        return DB_ABSOLUTE_PATH;
-    }
+//    public String getAbsPathToDb() throws SQLException {
+//        DB_ABSOLUTE_PATH = db.getPath();
+//        return DB_ABSOLUTE_PATH;
+//    }
 
     public void createTable() {
         checkDBFolder();    //This creates the database folder if not created
@@ -143,7 +143,7 @@ public class DBHelper {
             String query = "SELECT COUNT(*) FROM accelerometer_data_table WHERE action = '" + action + "' LIMIT 1000;";
 
             Cursor cursor = db.rawQuery(query, null);
-            cursor.moveToFirst();
+            cursor.moveToFirst(); //shouldnt it be last ?
             int result = cursor.getInt(0);
             cursor.close();
 
@@ -157,11 +157,11 @@ public class DBHelper {
         return 0;
     }
 
-    public JSONArray getDataAsJson(String action) throws JSONException {
-        List<AccelerometerAction> data = getData(action);
-        JSONArray mJSONArray = new JSONArray(Arrays.asList(data));
-        return mJSONArray;
-    }
+//    public JSONArray getDataAsJson(String action) throws JSONException {
+//        List<AccelerometerAction> data = getData(action);
+//        JSONArray mJSONArray = new JSONArray(Arrays.asList(data));
+//        return mJSONArray;
+//    }
 
 
     private AccelerometerAction cursorToAA(Cursor cursor) {
@@ -182,10 +182,11 @@ public class DBHelper {
 
         JSONArray activities = new JSONArray();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 20; i++) {
             JSONArray jsonArray = new JSONArray();
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < 50; j++) {
                 try {
+
                     if(((i * 50) + j) < dataList.size()){
                         jsonArray.put(dataList.get((i * 50) + j).getX());
                         jsonArray.put(dataList.get((i * 50) + j).getY());
@@ -216,32 +217,32 @@ public class DBHelper {
         return folder;
     }
 
-    public static String getDBFilePath(){
-        return android.os.Environment.getExternalStorageDirectory().toString() + dbFilePath;
-    }
-
-    public JSONObject cur2JsonObject(Cursor cursor, String keyColumn) throws JSONException {
-        JSONObject resultSet = new JSONObject();
-        cursor.moveToFirst();
-        while (cursor.isAfterLast() == false) {
-            int totalColumn = cursor.getColumnCount();
-            JSONObject rowObject = new JSONObject();
-            for (int i = 0; i < totalColumn; i++) {
-                if (cursor.getColumnName(i) != null) {
-                    try {
-                        rowObject.put(cursor.getColumnName(i),
-                                cursor.getString(i));
-                    } catch (Exception e) {
-                        Log.d("Cur2Json", e.getMessage());
-                    }
-                }
-            }
-            if(rowObject.has(keyColumn)){
-                resultSet.put(rowObject.getString(keyColumn), rowObject);
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return resultSet;
-    }
+//    public static String getDBFilePath(){
+//        return android.os.Environment.getExternalStorageDirectory().toString() + dbFilePath;
+//    }
+//
+//    public JSONObject cur2JsonObject(Cursor cursor, String keyColumn) throws JSONException {
+//        JSONObject resultSet = new JSONObject();
+//        cursor.moveToFirst();
+//        while (cursor.isAfterLast() == false) {
+//            int totalColumn = cursor.getColumnCount();
+//            JSONObject rowObject = new JSONObject();
+//            for (int i = 0; i < totalColumn; i++) {
+//                if (cursor.getColumnName(i) != null) {
+//                    try {
+//                        rowObject.put(cursor.getColumnName(i),
+//                                cursor.getString(i));
+//                    } catch (Exception e) {
+//                        Log.d("Cur2Json", e.getMessage());
+//                    }
+//                }
+//            }
+//            if(rowObject.has(keyColumn)){
+//                resultSet.put(rowObject.getString(keyColumn), rowObject);
+//            }
+//            cursor.moveToNext();
+//        }
+//        cursor.close();
+//        return resultSet;
+//    }
 }

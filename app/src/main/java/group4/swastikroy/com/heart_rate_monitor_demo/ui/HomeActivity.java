@@ -23,7 +23,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 public class HomeActivity extends AppCompatActivity {
 
     private Button collectData;
-    private Button trainSVM, clearDataBtn, showGraphButton;
+    private Button trainSVM, clearDataBtn, showGraphButton,showGraphPerformanceButton;
     private TextView textView;
     DBHelper database = new DBHelper(this);
     public static final String TABLE_NAME = "accelerometer_data_table";
@@ -45,6 +45,8 @@ public class HomeActivity extends AppCompatActivity {
         trainSVM = (Button) findViewById(R.id.button_trainsvm);
         clearDataBtn = (Button) findViewById(R.id.clearBtn);
         showGraphButton = (Button) findViewById(R.id.showGraphButton);
+        showGraphPerformanceButton = (Button) findViewById(R.id.showGraphPerformanceButton);
+
         textView = (TextView) findViewById(R.id.AccuracyTextView);
 
         database.createTable();
@@ -71,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 SVMUtil svmAccuracy = new SVMUtil(database, getApplicationContext());
                 String accuracy = svmAccuracy.calculateAccuracy();
-                textView.setText("Accuracy = " + accuracy);
+//                textView.setText("Accuracy = " + accuracy);
 
             }
         });
@@ -92,6 +94,16 @@ public class HomeActivity extends AppCompatActivity {
 
                 startActivity(loadGraphActivityIntent);
 
+            }
+        });
+
+        showGraphPerformanceButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent loadPerformanceGraphActivityIntent = new Intent(HomeActivity.this, PerformanceVisualizationActivity.class);
+
+                startActivity(loadPerformanceGraphActivityIntent);
             }
         });
     }

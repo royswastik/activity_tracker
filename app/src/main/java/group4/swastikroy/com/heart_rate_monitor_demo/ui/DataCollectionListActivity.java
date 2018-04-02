@@ -56,6 +56,7 @@ public class DataCollectionListActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString("action", action);
         ActivityUtil.openNewActivity(DataCollectionListActivity.this, DataCollectionActivity.class, bundle);
+
     }
 
     static class ViewHolder{

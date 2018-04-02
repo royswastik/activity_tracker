@@ -10,9 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 
-/**
- * Created by shaha on 14-Mar-18.
- */
 
 public class PermissionUtil {
     public static final int PERMISSION_REQUEST = 1;
