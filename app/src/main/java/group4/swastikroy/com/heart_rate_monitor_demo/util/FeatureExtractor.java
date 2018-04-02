@@ -55,6 +55,7 @@ public class FeatureExtractor {
 
 
 // can add Mean Y, Mean Z, and Variance Y, Variance Z
+    //  fft is and power will be complicated owing to unavailability of predefined api's
 
     public static double max_fft(AccelerometerDataInstance dataInstance){
         return 0;
