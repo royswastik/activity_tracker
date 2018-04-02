@@ -20,7 +20,7 @@ import java.util.List;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
-
+import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataInstance;
 
 public class DBHelper {
 
@@ -34,6 +34,11 @@ public class DBHelper {
 
     // Contacts table name
     private static final String TABLE_NAME = "accelerometer_data_table";
+
+    //Trial Table
+    private static final String TABLE_NAME_2 = "A_trial_table";
+    SQLiteDatabase db2 = null;
+
 
     SQLiteDatabase db = null;
 
@@ -133,6 +138,47 @@ public class DBHelper {
         return actionList;
     }
 
+    private AccelerometerAction cursorToAA(Cursor cursor) {
+        AccelerometerAction aa = new AccelerometerAction();
+
+        aa.setId(cursor.getInt(cursor.getColumnIndex("id")));
+        aa.setX(cursor.getFloat(cursor.getColumnIndex("x")));
+        aa.setY(cursor.getFloat(cursor.getColumnIndex("y")));
+        aa.setZ(cursor.getFloat(cursor.getColumnIndex("z")));
+        aa.setActionType(cursor.getString(cursor.getColumnIndex("action")));
+
+        return aa;
+    }
+
+    public List<AccelerometerDataInstance> getInstanceData(String action) {
+
+        List<AccelerometerAction> dataList = getData(action);
+
+        List<AccelerometerDataInstance> adi = new ArrayList<>();
+
+        List<Float> tempX = new ArrayList<>();
+        List<Float> tempY = new ArrayList<>();
+        List<Float> tempZ = new ArrayList<>();
+
+        for(int i = 0;i <20 ; i++){
+            adi.get(i).setActionType(dataList.get(i).getActionType());
+            adi.get(i).setId(i);
+
+                 for(int k = 0; k < 50;k++){
+                    tempX.add(dataList.get(k).getX());
+                    tempY.add(dataList.get(k).getY());
+                    tempZ.add(dataList.get(k).getZ());
+                 }
+            adi.get(i).setX(tempX);
+            adi.get(i).setY(tempY);
+            adi.get(i).setZ(tempZ);
+
+        }
+
+       return adi;
+    }
+
+
     public static int getCount(String action) {
 
 
@@ -164,17 +210,6 @@ public class DBHelper {
 //    }
 
 
-    private AccelerometerAction cursorToAA(Cursor cursor) {
-        AccelerometerAction aa = new AccelerometerAction();
-
-        aa.setId(cursor.getInt(cursor.getColumnIndex("id")));
-        aa.setX(cursor.getFloat(cursor.getColumnIndex("x")));
-        aa.setY(cursor.getFloat(cursor.getColumnIndex("y")));
-        aa.setZ(cursor.getFloat(cursor.getColumnIndex("z")));
-        aa.setActionType(cursor.getString(cursor.getColumnIndex("action")));
-
-        return aa;
-    }
 
     public JSONArray getDataForGraph(String action) {
 
@@ -203,6 +238,9 @@ public class DBHelper {
         return activities;
 
     }
+
+
+
 
 
     public static File checkDBFolder(){

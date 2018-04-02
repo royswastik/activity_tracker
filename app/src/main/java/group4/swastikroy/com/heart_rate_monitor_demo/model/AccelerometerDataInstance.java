@@ -7,6 +7,8 @@ import group4.swastikroy.com.heart_rate_monitor_demo.util.FeatureExtractor;
 /*
  * This is each data instance while training the machine learning classifier
  */
+
+
 public class AccelerometerDataInstance {
     private int id;
     private String actionType;
@@ -18,12 +20,12 @@ public class AccelerometerDataInstance {
 
 
 
-    //Features
-    //Max FFT
-    // RMS
-    // Mean in frequency domain
-    // Power
-    double rms;
+//    //Features
+//    //Max FFT
+//    // RMS
+//    // Mean in frequency domain
+//    // Power
+//    double rms;
 
     public AccelerometerDataInstance() {
 
@@ -36,14 +38,17 @@ public class AccelerometerDataInstance {
         this.z = z;
     }
 
-    public void generateFeatures(){
-        this.rms = FeatureExtractor.rms(this);
-    }
+//    public void generateFeatures(){
+//        this.rms = FeatureExtractor.rms(this);
+//    }
 
     public String getActionType() {
         return actionType;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setActionType(String actionType) {
         this.actionType = actionType;
     }
