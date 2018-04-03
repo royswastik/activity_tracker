@@ -31,13 +31,13 @@ public class WebJavascriptInterface {
         return "Hello";
     }
 
-    @JavascriptInterface
-    public String getData() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put(Constants.ACTIONS.JUMP, dbHelper.getData(Constants.ACTIONS.JUMP));
-        json.put(Constants.ACTIONS.RUN, dbHelper.getData(Constants.ACTIONS.RUN));
-        json.put(Constants.ACTIONS.WALK, dbHelper.getData(Constants.ACTIONS.WALK));
-        return json.toString();
-    }
+//    @JavascriptInterface
+//    public String getData() throws JSONException {
+//        JSONObject json = new JSONObject();
+//        json.put(Constants.ACTIONS.JUMP, dbHelper.getData(Constants.ACTIONS.JUMP));
+//        json.put(Constants.ACTIONS.RUN, dbHelper.getData(Constants.ACTIONS.RUN));
+//        json.put(Constants.ACTIONS.WALK, dbHelper.getData(Constants.ACTIONS.WALK));
+//        return json.toString();
+//    }
 
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
+//import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataInstance;
 
@@ -35,21 +35,18 @@ public class DBHelper {
     // Contacts table name
     private static final String TABLE_NAME = "accelerometer_data_table";
 
-    //Trial Table
-    private static final String TABLE_NAME_2 = "A_trial_table";
-    SQLiteDatabase db2 = null;
-
 
     SQLiteDatabase db = null;
 
     // Contacts Table Columns names
     private static final String ID = "id";
-    private static final String X = "x";
-    private static final String Y = "y";
-    private static final String Z = "z";
-    private static final String ACTION = "action";
-//    private static String DB_ABSOLUTE_PATH = "";
+    private static final String X = "AccelX";
+    private static final String Y = "AccelY";
+    private static final String Z = "AccelZ";
+    private static final String ACTION = "ActivityLabel";
+    //    private static String DB_ABSOLUTE_PATH = "";
     Context context;
+
 
 
     public static String dbFileName = "Group4.db";  //databse name
@@ -75,10 +72,16 @@ public class DBHelper {
 
     public void createTable() {
         checkDBFolder();    //This creates the database folder if not created
+        //To create the Table format as asked in question.
+        String columnList = new String();
 
+        for(int i =1; i<51 ; i++)
+        {
+            columnList = columnList + X + Integer.toString(i) + " REAL," + Y + Integer.toString(i) + " REAL," + Z + Integer.toString(i) + " REAL," ;
+
+        }
         String CREATE_TABLE = "CREATE TABLE if not exists " + TABLE_NAME + "("
-                + ID + " INTEGER PRIMARY KEY," + X + " REAL,"
-                + Y + " REAL," + Z + " REAL," + ACTION + " TEXT" + ")";
+                + ID + " INTEGER PRIMARY KEY," + columnList + ACTION + " TEXT" + ")";
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
         db.execSQL(CREATE_TABLE);
         Log.d("Table created DB", CREATE_TABLE);
@@ -93,14 +96,31 @@ public class DBHelper {
     public void insertAccelerometerDataList(List<AccelerometerDataPoint> list, String action) {
         Log.d("INSERTING...", "DB");
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+
+        int count = 1;
+
+//        List<String> DataInstance = new ArrayList<String>();
+        ContentValues values = new ContentValues();
+
         for (AccelerometerDataPoint point : list) {
-            ContentValues values = new ContentValues();
-            values.put(X, point.getX());
-            values.put(Y, point.getY());
-            values.put(Z, point.getZ());
-            values.put(ACTION, action);
-            db.insert(TABLE_NAME, null, values);
+
+            String X2 = X + Integer.toString(count);
+            String Y2 = Y + Integer.toString(count);
+            String Z2 = Z + Integer.toString(count);
+
+            values.put(X2, point.getX());
+            values.put(Y2, point.getY());
+            values.put(Z2, point.getZ());
+
+
+            count++;
+
         }
+
+        values.put(ACTION, action);
+
+        db.insert(TABLE_NAME, null, values);
+
         db.close();
     }
 
@@ -112,71 +132,71 @@ public class DBHelper {
 
 
 
-    public List<AccelerometerAction> getData(String action) {
+//    public List<AccelerometerAction> getData(String action) {
+//
+//        List<AccelerometerAction> actionList = new ArrayList<>();
+//
+//        db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+//
+//        try {
+//            String query = "SELECT * FROM accelerometer_data_table WHERE "+ACTION+" = '" + action + "' LIMIT 1000;";
+//
+//            Cursor cursor = db.rawQuery(query, null);
+//
+//            while (cursor.moveToNext()) {
+//                actionList.add(cursorToAA(cursor));
+//            }
+//            cursor.close();
+//
+//            return actionList;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d("getData", "Error: .");
+//        }
+//
+//
+//        return actionList;
+//    }
 
-        List<AccelerometerAction> actionList = new ArrayList<>();
+//    private AccelerometerAction cursorToAA(Cursor cursor) {
+//        AccelerometerAction aa = new AccelerometerAction();
+//
+//        aa.setId(cursor.getInt(cursor.getColumnIndex("id")));
+//        aa.setX(cursor.getFloat(cursor.getColumnIndex("x")));
+//        aa.setY(cursor.getFloat(cursor.getColumnIndex("y")));
+//        aa.setZ(cursor.getFloat(cursor.getColumnIndex("z")));
+//        aa.setActionType(cursor.getString(cursor.getColumnIndex("action")));
+//
+//        return aa;
+//    }
 
-        db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
-
-        try {
-            String query = "SELECT * FROM accelerometer_data_table WHERE action = '" + action + "' LIMIT 1000;";
-
-            Cursor cursor = db.rawQuery(query, null);
-
-            while (cursor.moveToNext()) {
-                actionList.add(cursorToAA(cursor));
-            }
-            cursor.close();
-
-            return actionList;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("getData", "Error: .");
-        }
-
-
-        return actionList;
-    }
-
-    private AccelerometerAction cursorToAA(Cursor cursor) {
-        AccelerometerAction aa = new AccelerometerAction();
-
-        aa.setId(cursor.getInt(cursor.getColumnIndex("id")));
-        aa.setX(cursor.getFloat(cursor.getColumnIndex("x")));
-        aa.setY(cursor.getFloat(cursor.getColumnIndex("y")));
-        aa.setZ(cursor.getFloat(cursor.getColumnIndex("z")));
-        aa.setActionType(cursor.getString(cursor.getColumnIndex("action")));
-
-        return aa;
-    }
-
-    public List<AccelerometerDataInstance> getInstanceData(String action) {
-
-        List<AccelerometerAction> dataList = getData(action);
-
-        List<AccelerometerDataInstance> adi = new ArrayList<>();
-
-        List<Float> tempX = new ArrayList<>();
-        List<Float> tempY = new ArrayList<>();
-        List<Float> tempZ = new ArrayList<>();
-
-        for(int i = 0;i <20 ; i++){
-            adi.get(i).setActionType(dataList.get(i).getActionType());
-            adi.get(i).setId(i);
-
-                 for(int k = 0; k < 50;k++){
-                    tempX.add(dataList.get(k).getX());
-                    tempY.add(dataList.get(k).getY());
-                    tempZ.add(dataList.get(k).getZ());
-                 }
-            adi.get(i).setX(tempX);
-            adi.get(i).setY(tempY);
-            adi.get(i).setZ(tempZ);
-
-        }
-
-       return adi;
-    }
+//    public List<AccelerometerDataInstance> getInstanceData(String action) {
+//
+//        List<AccelerometerAction> dataList = getData(action);
+//
+//        List<AccelerometerDataInstance> adi = new ArrayList<>();
+//
+//        List<Float> tempX = new ArrayList<>();
+//        List<Float> tempY = new ArrayList<>();
+//        List<Float> tempZ = new ArrayList<>();
+//
+//        for(int i = 0;i <20 ; i++){
+//            adi.get(i).setActionType(dataList.get(i).getActionType());
+//            adi.get(i).setId(i);
+//
+//                 for(int k = 0; k < 50;k++){
+//                    tempX.add(dataList.get(k).getX());
+//                    tempY.add(dataList.get(k).getY());
+//                    tempZ.add(dataList.get(k).getZ());
+//                 }
+//            adi.get(i).setX(tempX);
+//            adi.get(i).setY(tempY);
+//            adi.get(i).setZ(tempZ);
+//
+//        }
+//
+//       return adi;
+//    }
 
 
     public static int getCount(String action) {
@@ -186,14 +206,14 @@ public class DBHelper {
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
 
         try {
-            String query = "SELECT COUNT(*) FROM accelerometer_data_table WHERE action = '" + action + "' LIMIT 1000;";
+            String query = "SELECT COUNT(*) FROM accelerometer_data_table WHERE "+ACTION+" = '" + action + "' LIMIT 1000;";
 
             Cursor cursor = db.rawQuery(query, null);
-            cursor.moveToFirst(); //shouldnt it be last ?
+            cursor.moveToFirst();
             int result = cursor.getInt(0);
             cursor.close();
 
-            return result/50;
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
             Log.d("getData", "Error: .");
@@ -213,33 +233,52 @@ public class DBHelper {
 
     public JSONArray getDataForGraph(String action) {
 
-        List<AccelerometerAction> dataList = getData(action);
+        // List<AccelerometerAction> dataList = getData(action);
+        // here dataList was a 3 X 50 X 20 element list.
+        //we break it into  20 JsonArray arrays with x,y,z values (50 X3) and finally put it into a main Json array for each action.
 
-        JSONArray activities = new JSONArray();
 
-        for (int i = 0; i < 20; i++) {
-            JSONArray jsonArray = new JSONArray();
-            for (int j = 0; j < 50; j++) {
-                try {
+        db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
 
-                    if(((i * 50) + j) < dataList.size()){
-                        jsonArray.put(dataList.get((i * 50) + j).getX());
-                        jsonArray.put(dataList.get((i * 50) + j).getY());
-                        jsonArray.put(dataList.get((i * 50) + j).getZ());
-                    }
+        JSONArray jArray = new JSONArray();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        try {
+            String query = "SELECT * FROM accelerometer_data_table WHERE " + ACTION + " = '" + action + "' LIMIT 20;";
+
+            Cursor cursor = db.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+                jArray.put(cursorToJA(cursor));
             }
-            activities.put(jsonArray);
+            cursor.close();
+
+            return jArray;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("getDataFromGraph", "Error: .");
         }
 
-        return activities;
+        return jArray;
 
     }
 
+    private JSONArray cursorToJA(Cursor cursor) {
+        JSONArray jj = new JSONArray();
 
+        String[] colNames = cursor.getColumnNames();
+        for(int i = 0; i < colNames.length - 1; i++){
+
+            try {
+                jj.put(cursor.getDouble(cursor.getColumnIndex(colNames[i])));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.d("cursorToJA", "Error: .");
+            }
+
+
+        }
+
+        return jj;
+    }
 
 
 
