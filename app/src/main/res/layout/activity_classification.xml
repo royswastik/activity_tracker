@@ -10,6 +10,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.ClassificationActivity">
-
+    <Button
+        android:id="@+id/train_model"
+        style="@style/HomeBtn"
+        android:text="@string/train_model" />
+    <Button
+        android:id="@+id/test_model"
+        style="@style/HomeBtn"
+        android:text="@string/test_model" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Accuracy"
+        android:text="@string/accuracy_view"/>
+    <Button
+        android:id="@+id/Calculate_accuracy"
+        style="@style/HomeBtn"
+        android:text="@string/calculate_accuracy" />
 
 </LinearLayout>

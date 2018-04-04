@@ -21,6 +21,7 @@ import java.util.List;
 //import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerAction;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataInstance;
+import group4.swastikroy.com.heart_rate_monitor_demo.util.FeatureExtractor;
 
 public class DBHelper {
 
@@ -229,14 +230,61 @@ public class DBHelper {
 //        return mJSONArray;
 //    }
 
+// will give it as input in parameter of the model
+    public List<AccelerometerDataInstance> createDataPointList() {
+
+        db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
+
+        List<AccelerometerDataInstance> adiArray = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM accelerometer_data_table;";
+
+            Cursor cursor = db.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+
+                adiArray.add(cursorToFM(cursor));
+            }
+            cursor.close();
+
+            return adiArray;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("createDataPointList", "Error: .");
+        }
+
+        return adiArray;
+
+    }
+
+    //helper for createFeatureMatrix
+    private AccelerometerDataInstance cursorToFM(Cursor cursor) {
+        AccelerometerDataInstance adi = new AccelerometerDataInstance();
+
+        String colName1 = X + "1";
+        int i = cursor.getColumnIndex(colName1);
+        List<Float> tempX = new ArrayList<>();
+        List<Float> tempY = new ArrayList<>();
+        List<Float> tempZ = new ArrayList<>();
+            while(i<cursor.getColumnCount()-2){
+
+                tempX.add(cursor.getFloat(i));
+                tempY.add(cursor.getFloat(i + 1));
+                tempZ.add(cursor.getFloat(i + 2));
+
+                i = i + 3;
+
+            }
+        adi.setActionType(cursor.getString(cursor.getColumnIndex(ACTION)));
+        adi.setId(cursor.getInt(cursor.getColumnIndex(ID)));
+        adi.setX(tempX);
+        adi.setY(tempY);
+        adi.setZ(tempZ);
+        return adi;
+    }
 
 
     public JSONArray getDataForGraph(String action) {
-
-        // List<AccelerometerAction> dataList = getData(action);
-        // here dataList was a 3 X 50 X 20 element list.
-        //we break it into  20 JsonArray arrays with x,y,z values (50 X3) and finally put it into a main Json array for each action.
-
 
         db = SQLiteDatabase.openOrCreateDatabase(Environment.getExternalStorageDirectory() + dbFilePath, null);
 

@@ -2,7 +2,7 @@
     <string name="app_name">Group 4</string>
 
     <string name="intelligent_activity_tracker">Intelligent Activity Tracker</string>
-    <string name="train_svm">Train SVM</string>
+    <string name="train_svm">Classifier Model</string>
     <string name="collect_data">Collect Data</string>
 
     <string name="collection_option">Collection Options</string>
@@ -11,7 +11,13 @@
     <string name="jump_button">Jump</string>
     <string name="title_activity_data">DataActivity</string>
     <string name="title_activity_collect">CollectActivity</string>
+    <string name="accuracy_view">AccuracyView</string>
+    <string name="train_model">Train</string>
+    <string name="test_model">Test</string>
 
+
+
+    <string name="calculate_accuracy">Calculate Accuracy</string>
     <string name="data_collection_message">Collecting Your Data. Please wait...</string>
     <string name="data_collection_complete">Done Collecting Data</string>
 

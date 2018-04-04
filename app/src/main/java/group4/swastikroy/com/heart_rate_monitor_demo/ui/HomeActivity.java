@@ -71,8 +71,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SVMUtil svmAccuracy = new SVMUtil(database, getApplicationContext());
-                String accuracy = svmAccuracy.calculateAccuracy();
+//                SVMUtil svmAccuracy = new SVMUtil(database, getApplicationContext());
+                Intent trainingIntent = new Intent(HomeActivity.this, ClassificationActivity.class);
+                startActivity(trainingIntent);
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                String accuracy = svmAccuracy.calculateAccuracy();
 //                textView.setText("Accuracy = " + accuracy);
 
             }
