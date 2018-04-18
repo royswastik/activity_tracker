@@ -238,9 +238,10 @@ public class DBHelper {
         List<AccelerometerDataInstance> adiArray = new ArrayList<>();
 
         try {
-            String query = "SELECT * FROM accelerometer_data_table;";
+            String query = "SELECT * FROM accelerometer_data_table ORDER BY RANDOM() LIMIT 1000;";  // gives a random ordering to the rows.
 
             Cursor cursor = db.rawQuery(query, null);
+
             while (cursor.moveToNext()) {
 
                 adiArray.add(cursorToFM(cursor));

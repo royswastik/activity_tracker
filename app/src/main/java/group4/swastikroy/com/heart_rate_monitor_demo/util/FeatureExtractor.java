@@ -26,6 +26,50 @@ public class FeatureExtractor {
         return rms_val;
     }
 
+
+    public static double peakX(AccelerometerDataInstance dataInstance){
+
+        double peak_val = 0.0;
+        for(int i = 0; i < (dataInstance.getX().size()) ; i++){
+
+            if(dataInstance.getX().get(i) > peak_val){
+
+                peak_val = dataInstance.getX().get(i);
+
+            }
+
+        }
+        return peak_val;
+    }
+    public static double peakY(AccelerometerDataInstance dataInstance){
+
+        double peak_val = 0.0;
+        for(int i = 0; i < (dataInstance.getY().size()) ; i++){
+
+            if(dataInstance.getY().get(i) > peak_val){
+
+                peak_val = dataInstance.getY().get(i);
+
+            }
+
+        }
+        return peak_val;
+    }
+    public static double peakZ(AccelerometerDataInstance dataInstance){
+
+        double peak_val = 0.0;
+        for(int i = 0; i < (dataInstance.getZ().size()) ; i++){
+
+            if(dataInstance.getZ().get(i) > peak_val){
+
+                peak_val = dataInstance.getZ().get(i);
+
+            }
+
+        }
+        return peak_val;
+    }
+
     public static double meanX (AccelerometerDataInstance dataInstance){
 
         double mean = 0.0;
@@ -39,7 +83,33 @@ public class FeatureExtractor {
         return mean/(dataInstance.getX().size());
     }
 
-    public static double VarianceX(AccelerometerDataInstance dataInstance){
+    public static double meanY (AccelerometerDataInstance dataInstance){
+
+        double mean = 0.0;
+
+        for(int i = 0; i< (dataInstance.getY().size()); i++){
+
+            mean = mean + dataInstance.getY().get(i);
+
+        }
+
+        return mean/(dataInstance.getY().size());
+    }
+
+    public static double meanZ (AccelerometerDataInstance dataInstance){
+
+        double mean = 0.0;
+
+        for(int i = 0; i< (dataInstance.getZ().size()); i++){
+
+            mean = mean + dataInstance.getZ().get(i);
+
+        }
+
+        return mean/(dataInstance.getX().size());
+    }
+
+    public static double varianceX(AccelerometerDataInstance dataInstance){
 
         double mean = meanX(dataInstance);
         double temp = 0;
@@ -51,6 +121,33 @@ public class FeatureExtractor {
         }
 
         return temp/(dataInstance.getX().size()-1);
+    }
+
+    public static double varianceY(AccelerometerDataInstance dataInstance){
+
+        double mean = meanX(dataInstance);
+        double temp = 0;
+
+        for(int i = 0; i< (dataInstance.getY().size()); i++){
+
+            temp = temp + Math.pow(dataInstance.getY().get(i) - mean, 2);
+
+        }
+
+        return temp/(dataInstance.getY().size()-1);
+    }
+    public static double varianceZ(AccelerometerDataInstance dataInstance){
+
+        double mean = meanX(dataInstance);
+        double temp = 0;
+
+        for(int i = 0; i< (dataInstance.getZ().size()); i++){
+
+            temp = temp + Math.pow(dataInstance.getZ().get(i) - mean, 2);
+
+        }
+
+        return temp/(dataInstance.getZ().size()-1);
     }
 
 

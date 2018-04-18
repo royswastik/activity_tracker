@@ -18,4 +18,16 @@
         <item name="android:paddingRight">7dp</item>
     </style>
 
+    <style name="TextView" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+
+    </style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
+    </style>
 </resources>

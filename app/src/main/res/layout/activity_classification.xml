@@ -10,10 +10,187 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="group4.swastikroy.com.heart_rate_monitor_demo.ui.ClassificationActivity">
+    <TextView
+        android:id="@+id/textView_splash_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="@string/svm_parameters"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+    <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <TextView
+           android:layout_width="0dp"
+           android:layout_height="fill_parent"
+           android:text="SVC-Type"
+           android:background="@drawable/home_btn"
+           android:textColor="#FFF"
+           android:layout_margin="1dp"
+           android:layout_weight="1"/>
+       <Spinner
+           android:layout_width="0dp"
+           android:layout_height="fill_parent"
+           android:id="@+id/SVM_type"
+           android:entries="@array/svc_type"
+           android:layout_weight="1">
+       </Spinner>
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Kernel-Type"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/kernel_type"
+            android:entries="@array/kernel_type"
+            android:layout_weight="1">
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Gamma Value"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/GammaVal"
+            android:text="@string/gamma_view"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Cost Value"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/costView"
+            android:text="@string/cost_or_nu_view"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Coefficient Value"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/coef"
+            android:text="@string/coefficient_view"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Kernel Degree"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/kernel_degree"
+            android:text="@string/kernel_degree_view"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Cross Validation"
+            android:background="@drawable/home_btn"
+            android:textColor="#FFF"
+            android:layout_margin="1dp"
+            android:layout_weight="1"/>
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/CrossValidationSelect"
+            android:entries="@array/cross_validation_select"
+            android:layout_weight="1">
+        </Spinner>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="@string/test_svm"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/train_model"
         style="@style/HomeBtn"
         android:text="@string/train_model" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="@string/train_svm"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
     <Button
         android:id="@+id/test_model"
         style="@style/HomeBtn"
@@ -21,11 +198,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Accuracy"
-        android:text="@string/accuracy_view"/>
+        android:clickable="false"
+        android:text="@string/accuracyHeader"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <Button
         android:id="@+id/Calculate_accuracy"
         style="@style/HomeBtn"
-        android:text="@string/calculate_accuracy" />
+        android:text="@string/calculate_accuracy"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/HomeBtn"
+        android:id="@+id/Accuracy"
+        android:text="@string/accuracy_view"
+        android:gravity="center"
+        android:layout_weight="1"/>
+    </LinearLayout>
 
 </LinearLayout>

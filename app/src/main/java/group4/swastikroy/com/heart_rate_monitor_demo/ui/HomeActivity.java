@@ -23,8 +23,8 @@ import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 public class HomeActivity extends AppCompatActivity {
 
     private Button collectData;
-    private Button trainSVM, clearDataBtn, showGraphButton,showGraphPerformanceButton;
-    private TextView textView;
+    private Button classifier, clearDataBtn, showGraphButton,showGraphPerformanceButton;
+
     DBHelper database = new DBHelper(this);
     public static final String TABLE_NAME = "accelerometer_data_table";
 
@@ -42,12 +42,12 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         collectData = (Button) findViewById(R.id.collect_btn);
-        trainSVM = (Button) findViewById(R.id.button_trainsvm);
+        classifier = (Button) findViewById(R.id.button_classifier);
         clearDataBtn = (Button) findViewById(R.id.clearBtn);
         showGraphButton = (Button) findViewById(R.id.showGraphButton);
         showGraphPerformanceButton = (Button) findViewById(R.id.showGraphPerformanceButton);
 
-        textView = (TextView) findViewById(R.id.AccuracyTextView);
+
 
         database.createTable();
 
@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        trainSVM.setOnClickListener(new View.OnClickListener() {
+        classifier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

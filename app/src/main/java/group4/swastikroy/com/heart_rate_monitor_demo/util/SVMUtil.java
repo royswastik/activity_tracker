@@ -49,14 +49,14 @@ public class SVMUtil {
 
 //        param = new svm_parameter();
         // default values
-        param.svm_type = svm_parameter.NU_SVC;
+        param.svm_type = svm_parameter.C_SVC;
         param.kernel_type = svm_parameter.POLY;
-        param.degree = 2;
-        param.gamma = 0.007;    // 1/num_features
+        param.degree = 3;
+        param.gamma = 0.02;    // 1/num_features
         param.coef0 = 0;
         param.nu = 0.5;
         param.cache_size = 100;
-        param.C = 10000;
+        param.C = 5;
         param.eps = 1e-2;
         param.p = 0.1;
         param.shrinking = 1;
@@ -67,16 +67,16 @@ public class SVMUtil {
 
     }
 
-
-
-    public void train(){}
-
-    public void test(){}
-
-    private void do_cross_validation() {}
-
-//    public String calculateAccuracy(){return d0;}
-
+//
+//
+//    public void train(){}
+//
+//    public void test(){}
+//
+//    private void do_cross_validation() {}
+//
+////    public String calculateAccuracy(){return d0;}
+//
 
 
 

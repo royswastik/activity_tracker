@@ -59,10 +59,10 @@
         android:layout_marginBottom="10dp"
         android:textStyle="bold" />
     <Button
-        android:id="@+id/button_trainsvm"
+        android:id="@+id/button_classifier"
         style="@style/HomeBtn"
         android:drawableRight="@drawable/train"
-        android:text="@string/train_svm" />
+        android:text="@string/classifier" />
 
 
     <TextView
@@ -88,11 +88,4 @@
         android:drawableRight="@drawable/graph"
         android:text="Performance Visualization" />
 
-    <TextView
-        android:id="@+id/AccuracyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp" />
 </LinearLayout>

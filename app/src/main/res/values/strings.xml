@@ -2,8 +2,12 @@
     <string name="app_name">Group 4</string>
 
     <string name="intelligent_activity_tracker">Intelligent Activity Tracker</string>
-    <string name="train_svm">Classifier Model</string>
+    <string name="classifier">Classifier Model</string>
     <string name="collect_data">Collect Data</string>
+    <string name="svm_parameters">SVM Parameters</string>
+    <string name="train_svm">Train SVM Model</string>
+    <string name ="test_svm">Test SVM Model</string>
+    <string name="accuracyHeader">Accuracy</string>
 
     <string name="collection_option">Collection Options</string>
     <string name="run_button">Run</string>
@@ -15,6 +19,27 @@
     <string name="train_model">Train</string>
     <string name="test_model">Test</string>
 
+    <string name="gamma_view">GammaView</string>
+    <string name="cost_or_nu_view">CostView</string>
+    <string name="coefficient_view">CoefficientView</string>
+    <string name="kernel_degree_view">KernelDegreeView</string>
+    <string name="cross_validation">CrossValidation</string>
+    
+    <string-array name="svc_type">
+        <item>C_SVC</item>
+        <item>nu_SVC</item>
+    </string-array>
+    <string-array name="kernel_type">
+        <item>linear</item>
+        <item>polynomia</item>
+        <item>linear</item>
+        <item>rbf</item>
+        <item>sigmoid</item>
+    </string-array>
+    <string-array name="cross_validation_select">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
 
 
     <string name="calculate_accuracy">Calculate Accuracy</string>
