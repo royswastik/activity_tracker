@@ -82,11 +82,6 @@
         style="@style/HomeBtn"
         android:drawableRight="@drawable/graph"
         android:text="Data Visualization" />
-    <Button
-        android:id="@+id/showGraphPerformanceButton"
-        style="@style/HomeBtn"
-        android:drawableRight="@drawable/graph"
-        android:text="Performance Visualization" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,5 +98,5 @@
         android:id="@+id/realTimeDataCollection"
         style="@style/HomeBtn"
         android:drawableRight="@drawable/graph"
-        android:text="Extra Credit" />
+        android:text="Real Time Analysis" />
 </LinearLayout>

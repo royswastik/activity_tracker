@@ -12,6 +12,7 @@ public class Constants {
         String JUMP = "JUMP";
         String WALK = "WALK";
         String UNKNOWN = "UNKNOWN";
+        String IDLE = "IDLE";
     }
 
 

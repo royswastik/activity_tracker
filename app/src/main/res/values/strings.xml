@@ -13,6 +13,7 @@
     <string name="run_button">Run</string>
     <string name="walk_button">Walk</string>
     <string name="jump_button">Jump</string>
+    <string name="idle_button">Idle</string>
     <string name="title_activity_data">DataActivity</string>
     <string name="title_activity_collect">CollectActivity</string>
     <string name="accuracy_view">AccuracyView</string>

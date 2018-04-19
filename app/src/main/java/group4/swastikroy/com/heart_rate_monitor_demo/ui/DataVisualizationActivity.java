@@ -45,6 +45,7 @@ public class DataVisualizationActivity extends AppCompatActivity {
         walkCheckBox = (CheckBox) findViewById(R.id.checkBoxWalk);
         runCheckBox = (CheckBox) findViewById(R.id.checkBoxRun);
 
+//        webView.goForward();
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebChromeClient(new WebChromeClient());

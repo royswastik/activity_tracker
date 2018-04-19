@@ -1,6 +1,7 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.ui;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,6 +106,8 @@ public class ClassificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //set the HyperParameters as given as input by the user
+                svmUtil.setHyperParameters(svmParameter);
                 get_spinner_data();
                 train_model();
             }
@@ -164,6 +167,9 @@ public class ClassificationActivity extends AppCompatActivity {
                         break;
                     case Constants.ACTIONS.WALK:
                         targetValue = 3.0;
+                        break;
+                    case Constants.ACTIONS.IDLE:
+                        targetValue = 4.0;
                         break;
                     default:
                         targetValue = 0.0;
@@ -268,27 +274,6 @@ public class ClassificationActivity extends AppCompatActivity {
 
     }
 
-//    private void create_testing_param(){}
-//
-//    private void create_input_features() {
-//
-//        //X
-//        //each feature_set will be of size 60 X 1
-//
-//        //in svm_node format.
-//
-//
-//
-//
-//        //Y - target class ...60 points one array.
-//
-//        //l
-//        //length of training data.
-//    }
-
-
-//    private void create_classifier_model() {
-//    }
 
     private void get_Accuracy( double d) {
         if(testingCompleteFlag == 0){
@@ -296,15 +281,20 @@ public class ClassificationActivity extends AppCompatActivity {
             return;
         }else{
             //update accuracy at the text view.
-            holder.AccuracyValue.setText(String.valueOf(d));
+            holder.AccuracyValue.setText(String.format("%.2f", d));
 
         }
     }
     private void get_spinner_data(){
 
-        String svm_type_input = holder.SVM_type.getSelectedItem().toString();
-        String kernel_type_input = holder.kernel_type.getSelectedItem().toString();
+        int svm_type_input = holder.SVM_type.getSelectedItemPosition();
+        int kernel_type_input = holder.kernel_type.getSelectedItemPosition();
+
         String cv_select_input = holder.cross_validation.getSelectedItem().toString();
+
+        svmParameter.svm_type =svm_type_input;
+        svmParameter.kernel_type = kernel_type_input;
+
         if(cv_select_input.equals("Yes")){
             cross_validation = 1;
         }else{
@@ -325,11 +315,6 @@ public class ClassificationActivity extends AppCompatActivity {
 
             create_training_param(importedDP);
 
-            //set the HyperParameters as given as input by the user
-            svmUtil.setHyperParameters(svmParameter);
-
-            //TODO get the Hyper parameters as given as input by user, also get the crossValidation Yes/No from user and update the variable in the function
-
             if(cross_validation == 1){
                 crossValidationTarget = new double[svmProblem.l];
                 svm.svm_cross_validation(svmProblem,svmParameter,nr_fold,crossValidationTarget);
@@ -346,24 +331,16 @@ public class ClassificationActivity extends AppCompatActivity {
                 //Now train the system again.(as the parametes are updated and saved in svmParameter)
                 svmModel = svm.svm_train(svmProblem, svmParameter);
 
-
-
             }else{
                 //cross validation = false/0
 
 //               train the  model based on the Problem and parameters defined
                 svmModel = svm.svm_train(svmProblem, svmParameter);
 
-
-
             }
 
-
-//
-
-
             trainingCompleteFlag = 1;
-
+            NotificationUtil.makeToast(this, "Training Complete!!!");
             //save the model as a file
             NotificationUtil.makeToast(this, "Model Saved");
             svm.svm_save_model(modelFilePath, svmModel);
@@ -391,6 +368,7 @@ public class ClassificationActivity extends AppCompatActivity {
 
         }else {
 
+            NotificationUtil.makeToast(this, "Testing Begins!!!");
             double acc;
             int correctCount = 0;
             int totalCount = vYTest.length;
@@ -401,6 +379,7 @@ public class ClassificationActivity extends AppCompatActivity {
                 }
             }
             testingCompleteFlag = 1;
+            NotificationUtil.makeToast(this, "Testing Complete!!!");
             acc = (double) correctCount * 100 / (double) totalCount;
 
 //            double[] targetCrossValidation = new double[60];

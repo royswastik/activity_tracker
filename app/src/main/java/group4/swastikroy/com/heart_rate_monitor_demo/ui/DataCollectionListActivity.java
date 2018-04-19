@@ -49,6 +49,14 @@ public class DataCollectionListActivity extends AppCompatActivity {
                 startCollectionActivity("WALK");
             }
         });
+
+        holder.idleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCollectionActivity("IDLE");
+            }
+        });
+
     }
 
     private void startCollectionActivity(String action){
@@ -60,11 +68,12 @@ public class DataCollectionListActivity extends AppCompatActivity {
     }
 
     static class ViewHolder{
-        Button runButton, walkButton, jumpButton;
+        Button runButton, walkButton, jumpButton,idleButton;
         ViewHolder(Activity activity){
             runButton = (Button) activity.findViewById(R.id.run_button);
             walkButton = (Button) activity.findViewById(R.id.walk_button);
             jumpButton = (Button) activity.findViewById(R.id.jump_button);
+            idleButton = (Button) activity.findViewById(R.id.idle_button);
         }
     }
 

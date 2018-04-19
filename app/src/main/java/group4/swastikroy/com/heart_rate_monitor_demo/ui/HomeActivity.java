@@ -48,7 +48,6 @@ public class HomeActivity extends AppCompatActivity {
         classifier = (Button) findViewById(R.id.button_classifier);
         clearDataBtn = (Button) findViewById(R.id.clearBtn);
         showGraphButton = (Button) findViewById(R.id.showGraphButton);
-        showGraphPerformanceButton = (Button) findViewById(R.id.showGraphPerformanceButton);
         realTimeDataCollectionButton = (Button) findViewById(R.id.realTimeDataCollection);
 
 
@@ -104,15 +103,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        showGraphPerformanceButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                Intent loadPerformanceGraphActivityIntent = new Intent(HomeActivity.this, PerformanceVisualizationActivity.class);
-
-                startActivity(loadPerformanceGraphActivityIntent);
-            }
-        });
 
         realTimeDataCollectionButton.setOnClickListener(new View.OnClickListener(){
             @Override

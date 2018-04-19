@@ -12,12 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
@@ -26,11 +29,8 @@ import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoin
 import group4.swastikroy.com.heart_rate_monitor_demo.model.ActionLabel;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.ActionBarUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.Constants;
-import group4.swastikroy.com.heart_rate_monitor_demo.util.NotificationUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
-import libsvm.svm;
 import libsvm.svm_model;
-import java.util.Queue;
 
 public class RealTimeDataCollectionActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -53,6 +53,8 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
 
     Queue<AccelerometerDataPoint> dataQueue = new LinkedList<>();
 
+    TextView xView, yView, zView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +63,32 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_real_time_data);
         ActionBarUtil.setBackButton(this);
+
+
+
+        xView = (TextView) findViewById(R.id.x_value);
+        yView = (TextView) findViewById(R.id.y_value);
+        zView = (TextView) findViewById(R.id.z_value);
+
+
+
+
         try {
             SVMUtil.load_model();
+            Toast.makeText(RealTimeDataCollectionActivity.this, "Loading Model", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
         final Button startTracking = (Button) findViewById(R.id.startCollection);
+
 
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
 
                 //NotificationUtil.makeToast(RealTimeDataCollectionActivity.this, "Model default Parameters Loaded");
-                Toast.makeText(RealTimeDataCollectionActivity.this, "Loading Model", Toast.LENGTH_SHORT).show();
-                //TODO : load model here
+//                Toast.makeText(RealTimeDataCollectionActivity.this, "Loading Model", Toast.LENGTH_SHORT).show();
+                //load model here
 
 
                 //NotificationUtil.makeToast(RealTimeDataCollectionActivity.this, "Collecting Data Now");
@@ -89,10 +103,13 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
         });
     }
 
+//        newData.setY(current_sensor_value.getY());
+//        newData.setZ(current_sensor_value.getZ());
     public void startDataCollection() {
         //List<Float> dataList = new ArrayList<>();
 
         int SENSOR_SAMPLING_RATE = 100000;
+
 
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         senAccelerometer = senSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -101,17 +118,9 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
         current_sensor_value = new AccelerometerDataPoint();
 
 
+        handler.postDelayed(runnableClassifierTimer,2500);
+        handler.post(runnableCodeCollection);
 
-        AccelerometerDataPoint newData = new AccelerometerDataPoint();
-        newData.setX(current_sensor_value.getX());
-        newData.setY(current_sensor_value.getY());
-        newData.setZ(current_sensor_value.getZ());
-        dataQueue.add(newData);
-        if(dataQueue.size() == 51){
-            dataQueue.remove();
-        }
-
-        Log.d("New Data = ",newData.toString());
 
     }
     @Override
@@ -127,26 +136,75 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
             current_sensor_value.setX(sensorEvent.values[0]);
             current_sensor_value.setY(sensorEvent.values[1]);
             current_sensor_value.setZ(sensorEvent.values[2]);
-            Log.v("Sensor", current_sensor_value.toString());
+            //Log.v("Sensor", current_sensor_value.toString());
         }
-        Log.d("count : " + collection_timer, "T");
+        //Log.d("count : " + collection_timer, "T");
     }
 
     Handler handler = new Handler();
-    private Runnable runnableCodeCountdown = new Runnable() {
+    private Runnable runnableClassifierTimer = new Runnable() {
         @Override
         public void run() {
             classify();
             handler.postDelayed(this, 2000);
+
         }
     };
 
     public void classify(){
+        if(dataQueue.size() < 50){
+            return;
+        }
         AccelerometerDataInstance dataInstance = new AccelerometerDataInstance(dataQueue);
         dataInstance.setActionType(Constants.ACTIONS.UNKNOWN);
-        ActionLabel actionLabel = SVMUtil.classifyInstance(dataInstance);
         //Use this class to show predicted label in UI and proper GIF
+        ActionLabel actionLabel = SVMUtil.classifyInstance(dataInstance);
+
+        TextView activityLabel = (TextView) findViewById(R.id.activity_type);
+        activityLabel.setText(actionLabel.getLabel());
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
+        imageView.setVisibility(View.VISIBLE);
+        if(actionLabel.getLabel().equals(Constants.ACTIONS.RUN)) {
+            Glide.with(this).load("https://media.giphy.com/media/ICoxhc8wGbJ8k/giphy.gif").into(imageViewTarget);
+        }
+        else if(actionLabel.getLabel().equals(Constants.ACTIONS.WALK)) {
+            Glide.with(this).load("https://media.giphy.com/media/kA158Gup0eSpG/giphy.gif").into(imageViewTarget);
+        }
+        else if(actionLabel.getLabel().equals(Constants.ACTIONS.JUMP)) {
+            Glide.with(this).load("https://media.giphy.com/media/3oEduVY5mqa2GDxgcM/giphy.gif").into(imageViewTarget);
+        }
+        else {
+            imageView.setVisibility(View.INVISIBLE);
+        }
+
+
     }
+
+    private Runnable runnableCodeCollection = new Runnable() {
+        @Override
+        public void run() {
+
+                AccelerometerDataPoint newData = new AccelerometerDataPoint();
+                newData.setX(current_sensor_value.getX());
+                newData.setY(current_sensor_value.getY());
+                newData.setZ(current_sensor_value.getZ());
+
+                dataQueue.add(newData);
+                if(dataQueue.size() == 51){
+                    dataQueue.remove();
+                }
+
+                xView.setText(String.valueOf(dataQueue.peek().getX()));
+                yView.setText(String.valueOf(dataQueue.peek().getY()));
+                zView.setText(String.valueOf(dataQueue.peek().getZ()));
+
+
+                handler.postDelayed(this,(1000/sampling_frequency));
+
+
+        }
+    };
 }
 
 /*GIF

@@ -39,5 +39,10 @@
         style="@style/HomeBtn"
         android:drawableRight="@drawable/run"
         android:text="@string/run_button" />
+    <Button
+        android:id="@+id/idle_button"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/jump"
+        android:text="@string/idle_button" />
 
 </LinearLayout>

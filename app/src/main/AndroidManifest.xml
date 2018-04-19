@@ -27,7 +27,6 @@
         <activity android:name=".ui.ClassificationActivity" />
         <activity android:name=".ui.DataCollectionListActivity" />
         <activity android:name=".ui.RealTimeDataCollectionActivity"/>
-        <activity android:name=".ui.PerformanceVisualizationActivity"></activity>
     </application>
 
 </manifest>
