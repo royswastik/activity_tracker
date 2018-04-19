@@ -28,10 +28,10 @@ public class PerformanceVisualizationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_performance_visualization);
-        setup();
-        plotGraphs();
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_performance_visualization);
+//        setup();
+//        plotGraphs();
     }
 
     private void setup(){

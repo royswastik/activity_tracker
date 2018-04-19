@@ -1,6 +1,8 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,12 +20,13 @@ import java.io.OutputStream;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
 import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
+import group4.swastikroy.com.heart_rate_monitor_demo.util.NotificationUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 
 public class HomeActivity extends AppCompatActivity {
 
     private Button collectData;
-    private Button classifier, clearDataBtn, showGraphButton,showGraphPerformanceButton;
+    private Button classifier, clearDataBtn, showGraphButton,showGraphPerformanceButton,realTimeDataCollectionButton;
 
     DBHelper database = new DBHelper(this);
     public static final String TABLE_NAME = "accelerometer_data_table";
@@ -33,11 +36,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
-        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
-
-        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
-        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
+//        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
+//        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
+//
+//        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
+//        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
 
 
         setContentView(R.layout.activity_main);
@@ -46,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         clearDataBtn = (Button) findViewById(R.id.clearBtn);
         showGraphButton = (Button) findViewById(R.id.showGraphButton);
         showGraphPerformanceButton = (Button) findViewById(R.id.showGraphPerformanceButton);
-
+        realTimeDataCollectionButton = (Button) findViewById(R.id.realTimeDataCollection);
 
 
         database.createTable();
@@ -63,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
         clearDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database.cleardata();
+                clearData();
             }
         });
 
@@ -89,6 +92,7 @@ public class HomeActivity extends AppCompatActivity {
                 JSONArray walk = database.getDataForGraph("WALK");
                 JSONArray run = database.getDataForGraph("RUN");
 
+
                 Intent loadGraphActivityIntent = new Intent(HomeActivity.this, DataVisualizationActivity.class);
 
                 loadGraphActivityIntent.putExtra("jump", String.valueOf(jump));
@@ -109,44 +113,76 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(loadPerformanceGraphActivityIntent);
             }
         });
+
+        realTimeDataCollectionButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                Intent loadRealTimeDataCollectionIntent = new Intent(HomeActivity.this, RealTimeDataCollectionActivity.class);
+                startActivity(loadRealTimeDataCollectionIntent);
+            }
+        });
     }
 
-    private void moveFile(String outputPath, String filename) {
-
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-
-            //create output directory if it doesn't exist
-            File dir = new File(outputPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-
-
-            in = getAssets().open(filename);
-            out = new FileOutputStream(outputPath + filename);
-
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            in.close();
-            in = null;
-
-            // write the output file
-            out.flush();
-            out.close();
-            out = null;
-
-
-        } catch (FileNotFoundException fnfe1) {
-            Log.e("tag", fnfe1.getStackTrace().toString());
-
-        } catch (Exception e) {
-            Log.e("tag", e.getStackTrace().toString());
-        }
+    private void clearData(){
+        // Use the Builder class for convenient dialog construction
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure to delete data?")
+                .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        database.cleardata();
+                        NotificationUtil.makeToast(HomeActivity.this, "Data Cleared");
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
+
+//    private void moveFile(String outputPath, String filename) {
+//
+//        InputStream in = null;
+//        OutputStream out = null;
+//        try {
+//
+//            //create output directory if it doesn't exist
+//            File dir = new File(outputPath);
+//            if (!dir.exists()) {
+//                dir.mkdirs();
+//            }
+//
+//
+//            in = getAssets().open(filename);
+//            out = new FileOutputStream(outputPath + filename);
+//
+//            byte[] buffer = new byte[1024];
+//            int read;
+//            while ((read = in.read(buffer)) != -1) {
+//                out.write(buffer, 0, read);
+//            }
+//            in.close();
+//            in = null;
+//
+//            // write the output file
+//            out.flush();
+//            out.close();
+//            out = null;
+//
+//
+//        } catch (FileNotFoundException fnfe1) {
+//            Log.e("tag", fnfe1.getStackTrace().toString());
+//
+//        } catch (Exception e) {
+//            Log.e("tag", e.getStackTrace().toString());
+//        }
+//
+//    }
+//
+
 }

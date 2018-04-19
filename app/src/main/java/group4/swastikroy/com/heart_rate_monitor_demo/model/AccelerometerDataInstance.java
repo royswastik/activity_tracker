@@ -1,6 +1,8 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.util.FeatureExtractor;
 
@@ -29,6 +31,17 @@ public class AccelerometerDataInstance {
 
     public AccelerometerDataInstance() {
 
+    }
+
+    public AccelerometerDataInstance(Queue<AccelerometerDataPoint> dataPoints) {
+        this.x = new ArrayList<>();
+        this.y = new ArrayList<>();
+        this.z = new ArrayList<>();
+        for(AccelerometerDataPoint dataPoint : dataPoints){
+            this.x.add(dataPoint.getX());
+            this.y.add(dataPoint.getY());
+            this.z.add(dataPoint.getZ());
+        }
     }
 
     public AccelerometerDataInstance(String actionType, List<Float> x, List<Float> y, List<Float> z) {

@@ -23,6 +23,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataInst
 import group4.swastikroy.com.heart_rate_monitor_demo.util.ActionBarUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.Constants;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.FeatureExtractor;
+import group4.swastikroy.com.heart_rate_monitor_demo.util.NotificationUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 import libsvm.*;
 
@@ -50,11 +51,11 @@ public class ClassificationActivity extends AppCompatActivity {
     double accuracy;
 //    public FeatureExtractor feat = new FeatureExtractor();
 
-    public static String svmModelName = "SVMModelSave.txt";  //SVM Model name
-    static String baseModelDir="/Android/Data/CSE535_ASSIGNMENT3";
+    public static String svmModelName = Constants.svmModelName;  //SVM Model name
+    static String baseModelDir=Constants.baseModelDir;
     //Path where db to be created
-    public static String MFilePath = baseModelDir+"/"+svmModelName;
-    String modelFilePath = Environment.getExternalStorageDirectory() + MFilePath;
+    public static String MFilePath = Constants.MFilePath;
+    String modelFilePath = Constants.modelFilePath;
 
     private static final double trainToTotalDataRatio = 0.67;
 
@@ -69,6 +70,9 @@ public class ClassificationActivity extends AppCompatActivity {
     svm_node[][] vXTrain ;
     double[] vYTest ;
     svm_node[][] vXTest ;
+
+    int trainingCompleteFlag = 0;
+    int testingCompleteFlag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +89,7 @@ public class ClassificationActivity extends AppCompatActivity {
         svmUtil.setHyperParameters(svmParameter);
 
         //TODO : Put a Toast Here
+        NotificationUtil.makeToast(this, "Model default Parameters Loaded" );
         holder.GammaVal.setText(Double.toString(svmParameter.gamma));
         holder.coef.setText(Double.toString(svmParameter.coef0));
         holder.costView.setText(Double.toString(svmParameter.C));
@@ -122,12 +127,12 @@ public class ClassificationActivity extends AppCompatActivity {
 
     }
 
-   private void create_training_param(){
+   private void create_training_param(List<AccelerometerDataInstance> a){
 
-        List<AccelerometerDataInstance> importedDP = dbHelper.createDataPointList();
+
 
 //        trainToTotalDataRatio = 0.67;
-        totalData = importedDP.size();
+        totalData = a.size();
         trainDataLimit = (int) Math.floor(trainToTotalDataRatio * totalData);
         testDataLimit = totalData - trainDataLimit;
 
@@ -144,7 +149,7 @@ public class ClassificationActivity extends AppCompatActivity {
 //        svm_node[] featureValueTest = new svm_node[featureCount];
 
         int arrayIndex = 0;
-        for(AccelerometerDataInstance aDataInstance : importedDP) {
+        for(AccelerometerDataInstance aDataInstance : a) {
 
              Double targetValue;
 
@@ -286,10 +291,14 @@ public class ClassificationActivity extends AppCompatActivity {
 //    }
 
     private void get_Accuracy( double d) {
+        if(testingCompleteFlag == 0){
+            NotificationUtil.makeToast(this, "Testing is not completed");
+            return;
+        }else{
+            //update accuracy at the text view.
+            holder.AccuracyValue.setText(String.valueOf(d));
 
-        //update accuracy at the text view.
-        holder.AccuracyValue.setText(String.valueOf(d));
-
+        }
     }
     private void get_spinner_data(){
 
@@ -307,7 +316,14 @@ public class ClassificationActivity extends AppCompatActivity {
 
         try {
             //create the problem with data from the collected source
-            create_training_param();
+            List<AccelerometerDataInstance> importedDP = dbHelper.createDataPointList();
+            totalData = importedDP.size();
+            if(totalData < 10){
+                NotificationUtil.makeToast(this, "Not Sufficient Data");
+                return ;
+            }
+
+            create_training_param(importedDP);
 
             //set the HyperParameters as given as input by the user
             svmUtil.setHyperParameters(svmParameter);
@@ -321,6 +337,7 @@ public class ClassificationActivity extends AppCompatActivity {
 
                 //TODO get the new Hyperparameter values after cross validation and update in the display
                 //TODO add a Toast There!!!
+                NotificationUtil.makeToast(this, "CrossValidation results based Model Parameters Updated");
                 holder.GammaVal.setText(Double.toString(svmParameter.gamma));
                 holder.coef.setText(Double.toString(svmParameter.coef0));
                 holder.costView.setText(Double.toString(svmParameter.C));
@@ -331,12 +348,13 @@ public class ClassificationActivity extends AppCompatActivity {
 
 
 
-
             }else{
                 //cross validation = false/0
 
-//                train the  model based on the Problem and parameters defined
+//               train the  model based on the Problem and parameters defined
                 svmModel = svm.svm_train(svmProblem, svmParameter);
+
+
 
             }
 
@@ -344,8 +362,10 @@ public class ClassificationActivity extends AppCompatActivity {
 //
 
 
-            //save the model as a file
+            trainingCompleteFlag = 1;
 
+            //save the model as a file
+            NotificationUtil.makeToast(this, "Model Saved");
             svm.svm_save_model(modelFilePath, svmModel);
 
 
@@ -358,15 +378,20 @@ public class ClassificationActivity extends AppCompatActivity {
 
     }
 
-    private void load_model() throws IOException {
-         svmModel = svm.svm_load_model(modelFilePath);
+    public  void load_model(svm_model m) throws IOException {
+         m = svm.svm_load_model(modelFilePath);
 
     }
 
-    private double test_model() {
-        double acc;
-        if (cross_validation == 0) {
+    public double test_model() {
 
+        if(trainingCompleteFlag == 0 ){
+            NotificationUtil.makeToast(this, "Training is not completed!!!");
+            return 0.0;
+
+        }else {
+
+            double acc;
             int correctCount = 0;
             int totalCount = vYTest.length;
             for (int k = 0; k < totalCount; k++) {
@@ -375,28 +400,14 @@ public class ClassificationActivity extends AppCompatActivity {
                     correctCount++;
                 }
             }
-
-            acc = (double) correctCount * 100 / (double) totalCount;
-
-       }else {
-
-            int correctCount = 0;
-            int totalCount = vYTest.length;
-            for (int k = 0; k < totalCount; k++) {
-                double predictedClass = svm.svm_predict(svmModel, vXTest[k]);
-                if (vYTest[k] == predictedClass) {
-                    correctCount++;
-                }
-            }
-
+            testingCompleteFlag = 1;
             acc = (double) correctCount * 100 / (double) totalCount;
 
 //            double[] targetCrossValidation = new double[60];
 //            svm.svm_cross_validation(svmProblem, svmParameter, nr_fold, targetCrossValidation);
-
+            return acc;
         }
 
-        return acc;
     }
 
     static class ViewHolder {

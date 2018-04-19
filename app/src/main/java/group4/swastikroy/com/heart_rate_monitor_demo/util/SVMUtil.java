@@ -18,6 +18,7 @@ import java.util.Vector;
 
 import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataInstance;
+import group4.swastikroy.com.heart_rate_monitor_demo.model.ActionLabel;
 import libsvm.svm;
 import libsvm.svm_model;
 import libsvm.svm_node;
@@ -35,6 +36,7 @@ public class SVMUtil {
 
     DBHelper database;
     Context context;
+    static svm_model svmModel;
 
     public SVMUtil(DBHelper database, Context context) {
         this.database = database;
@@ -66,6 +68,35 @@ public class SVMUtil {
         param.weight = new double[0];
 
     }
+
+    public static void load_model() throws IOException {
+        svmModel = svm.svm_load_model(Constants.modelFilePath);
+    }
+
+    public static ActionLabel classifyInstance(AccelerometerDataInstance data){
+        double predictedClass = svm.svm_predict(svmModel, getFeatures(data));
+        ActionLabel predictedLabel = new ActionLabel();
+        if(predictedClass == 1.0){
+            predictedLabel.setLabel(Constants.ACTIONS.JUMP);
+        }
+        else if(predictedClass == 2.0){
+            predictedLabel.setLabel(Constants.ACTIONS.RUN);
+        }
+        else if(predictedClass == 3.0){
+            predictedLabel.setLabel(Constants.ACTIONS.WALK);
+        }
+        else{
+            predictedLabel.setLabel(Constants.ACTIONS.UNKNOWN);
+        }
+       return predictedLabel;
+    }
+
+    public static svm_node[] getFeatures(AccelerometerDataInstance data){
+
+
+        return null;
+    }
+
 
 //
 //

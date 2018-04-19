@@ -87,5 +87,21 @@
         style="@style/HomeBtn"
         android:drawableRight="@drawable/graph"
         android:text="Performance Visualization" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_marginTop="20dp"
+        android:text="Real Time Data Collection"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading_color"
+        android:textSize="@dimen/splash_title_size"
+        android:paddingLeft="7dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/realTimeDataCollection"
+        style="@style/HomeBtn"
+        android:drawableRight="@drawable/graph"
+        android:text="Extra Credit" />
 </LinearLayout>
