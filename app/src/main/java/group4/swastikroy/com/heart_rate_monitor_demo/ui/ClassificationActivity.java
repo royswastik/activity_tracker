@@ -176,22 +176,22 @@ public class ClassificationActivity extends AppCompatActivity {
                     featureValueTrain.index = featureIndex;
                     switch(featureIndex) {
                         case 1:
-                            featureVal = varianceX(aDataInstance);
+                            featureVal = variance(aDataInstance.getX());
                             break;
                         case 2:
-                            featureVal = varianceY(aDataInstance);
+                            featureVal = variance(aDataInstance.getY());
                             break;
                         case 3:
-                            featureVal = varianceZ(aDataInstance);
+                            featureVal = variance(aDataInstance.getZ());
                             break;
                         case 4:
-                            featureVal = peakX(aDataInstance);
+                            featureVal = peak(aDataInstance.getX());
                             break;
                         case 5:
-                            featureVal = peakY(aDataInstance);
+                            featureVal = peak(aDataInstance.getY());
                             break;
                         case 6:
-                            featureVal = peakZ(aDataInstance);
+                            featureVal = peak(aDataInstance.getZ());
                             break;
                         default:
                             featureVal = 0.0;
@@ -220,22 +220,22 @@ public class ClassificationActivity extends AppCompatActivity {
 
                         switch (featureIndex) {
                             case 1:
-                                featureVal = varianceX(aDataInstance);
+                                featureVal = variance(aDataInstance.getX());
                                 break;
                             case 2:
-                                featureVal = varianceY(aDataInstance);
+                                featureVal = variance(aDataInstance.getY());
                                 break;
                             case 3:
-                                featureVal = varianceZ(aDataInstance);
+                                featureVal = variance(aDataInstance.getZ());
                                 break;
                             case 4:
-                                featureVal = peakX(aDataInstance);
+                                featureVal = peak(aDataInstance.getX());
                                 break;
                             case 5:
-                                featureVal = peakY(aDataInstance);
+                                featureVal = peak(aDataInstance.getY());
                                 break;
                             case 6:
-                                featureVal = peakZ(aDataInstance);
+                                featureVal = peak(aDataInstance.getZ());
                                 break;
                             default:
                                 featureVal = 0.0;
