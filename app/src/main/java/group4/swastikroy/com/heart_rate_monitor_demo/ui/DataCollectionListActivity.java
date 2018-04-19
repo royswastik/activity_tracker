@@ -13,7 +13,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.R;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.ActionBarUtil;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.ActivityUtil;
 
-public class DataCollectionListActivity extends AppCompatActivity {
+public class DataCollectionListActivity extends AbstractInnerActivity {
 
     ViewHolder holder;
 
@@ -22,7 +22,7 @@ public class DataCollectionListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_collection_list);
         holder = new ViewHolder(this);
-        ActionBarUtil.setBackButton(this);
+
         addListeners();
     }
 
@@ -76,16 +76,4 @@ public class DataCollectionListActivity extends AppCompatActivity {
             idleButton = (Button) activity.findViewById(R.id.idle_button);
         }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }

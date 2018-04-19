@@ -31,16 +31,13 @@ import libsvm.*;
 
 import static group4.swastikroy.com.heart_rate_monitor_demo.util.FeatureExtractor.*;
 
-public class ClassificationActivity extends AppCompatActivity {
+public class ClassificationActivity extends AbstractInnerActivity {
 
     SVMUtil svmUtil;
     DBHelper dbHelper;
     ViewHolder holder;
 
 
-//    Spinner spinner = (Spinner) findViewById(R.id.SVM_type);
-//    ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.svc_type, R.layout.spinner_item);
-//    spinner.setAdapter(adapter);
 
     //Few parameters for the model
     public svm sModel = new svm();
@@ -50,7 +47,6 @@ public class ClassificationActivity extends AppCompatActivity {
     public int cross_validation;
     public int nr_fold = 4;
     double accuracy;
-//    public FeatureExtractor feat = new FeatureExtractor();
 
     public static String svmModelName = Constants.svmModelName;  //SVM Model name
     static String baseModelDir=Constants.baseModelDir;
@@ -89,10 +85,8 @@ public class ClassificationActivity extends AppCompatActivity {
         //to update the text views with default svmParameter
         svmUtil.setHyperParameters(svmParameter);
 
-        //TODO : Put a Toast Here
         NotificationUtil.makeToast(this, "Model default Parameters Loaded" );
         holder.GammaVal.setText(Double.toString(svmParameter.gamma));
-        holder.coef.setText(Double.toString(svmParameter.coef0));
         holder.costView.setText(Double.toString(svmParameter.C));
         holder.kernel_degree.setText(Double.toString(svmParameter.degree));
 
@@ -100,8 +94,6 @@ public class ClassificationActivity extends AppCompatActivity {
 
     private void addListeners() {
 
-        // need to add a listener to train the model.
-        //keep a variable which will help prevent accuracy display if run without training the model.
         holder.trainModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,8 +104,8 @@ public class ClassificationActivity extends AppCompatActivity {
                 train_model();
             }
         });
-        // one to test the model.
-        //keep a variable to use to prevent run without testing the model.
+
+
         holder.testModel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,7 +316,6 @@ public class ClassificationActivity extends AppCompatActivity {
                 //TODO add a Toast There!!!
                 NotificationUtil.makeToast(this, "CrossValidation results based Model Parameters Updated");
                 holder.GammaVal.setText(Double.toString(svmParameter.gamma));
-                holder.coef.setText(Double.toString(svmParameter.coef0));
                 holder.costView.setText(Double.toString(svmParameter.C));
                 holder.kernel_degree.setText(Double.toString(svmParameter.degree));
 
@@ -393,7 +384,7 @@ public class ClassificationActivity extends AppCompatActivity {
         Button calcAccuracy, trainModel, testModel;
         TextView AccuracyValue;
         Spinner SVM_type,kernel_type,cross_validation;
-        TextView GammaVal,costView,coef,kernel_degree;
+        TextView GammaVal,costView,kernel_degree;
 
         ViewHolder(Activity activity) {
             calcAccuracy = (Button) activity.findViewById(R.id.Calculate_accuracy);
@@ -406,7 +397,6 @@ public class ClassificationActivity extends AppCompatActivity {
 
             GammaVal = (TextView) activity.findViewById(R.id.GammaVal);
             costView = (TextView) activity.findViewById(R.id.costView);
-            coef = (TextView) activity.findViewById(R.id.coef);
             kernel_degree = (TextView) activity.findViewById(R.id.kernel_degree);
             AccuracyValue = (TextView) activity.findViewById(R.id.Accuracy);
 

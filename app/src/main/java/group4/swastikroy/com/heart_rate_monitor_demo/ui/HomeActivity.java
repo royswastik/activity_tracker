@@ -36,12 +36,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
-//        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM");
-//
-//        moveFile("/data/user/0/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
-//        moveFile("/data/data/ group4.swastikroy.com.heart_rate_monitor_demo/databases/", "SVM-journal");
-
 
         setContentView(R.layout.activity_main);
         collectData = (Button) findViewById(R.id.collect_btn);
@@ -49,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
         clearDataBtn = (Button) findViewById(R.id.clearBtn);
         showGraphButton = (Button) findViewById(R.id.showGraphButton);
         realTimeDataCollectionButton = (Button) findViewById(R.id.realTimeDataCollection);
-
 
         database.createTable();
 
@@ -73,7 +66,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                SVMUtil svmAccuracy = new SVMUtil(database, getApplicationContext());
+
                 Intent trainingIntent = new Intent(HomeActivity.this, ClassificationActivity.class);
                 startActivity(trainingIntent);
 //                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

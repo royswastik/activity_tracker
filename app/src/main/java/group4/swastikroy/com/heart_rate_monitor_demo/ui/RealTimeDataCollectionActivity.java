@@ -32,7 +32,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.util.Constants;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.SVMUtil;
 import libsvm.svm_model;
 
-public class RealTimeDataCollectionActivity extends AppCompatActivity implements SensorEventListener {
+public class RealTimeDataCollectionActivity extends AbstractInnerActivity implements SensorEventListener {
 
     int count = 0;
     ClassificationActivity classify = new ClassificationActivity();
@@ -174,7 +174,9 @@ public class RealTimeDataCollectionActivity extends AppCompatActivity implements
         else if(actionLabel.getLabel().equals(Constants.ACTIONS.JUMP)) {
             Glide.with(this).load("https://media.giphy.com/media/3oEduVY5mqa2GDxgcM/giphy.gif").into(imageViewTarget);
         }
-        else {
+        else if(actionLabel.getLabel().equals(Constants.ACTIONS.IDLE)) {
+            Glide.with(this).load("https://media.giphy.com/media/xT0xeDjlMBXbXcEIko/giphy.gif").into(imageViewTarget);
+        } else {
             imageView.setVisibility(View.INVISIBLE);
         }
 

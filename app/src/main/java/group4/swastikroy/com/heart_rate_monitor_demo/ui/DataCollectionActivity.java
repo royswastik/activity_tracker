@@ -24,7 +24,7 @@ import group4.swastikroy.com.heart_rate_monitor_demo.db.DBHelper;
 import group4.swastikroy.com.heart_rate_monitor_demo.model.AccelerometerDataPoint;
 import group4.swastikroy.com.heart_rate_monitor_demo.util.ActionBarUtil;
 
-public class DataCollectionActivity extends AppCompatActivity implements SensorEventListener {
+public class DataCollectionActivity extends AbstractInnerActivity implements SensorEventListener {
 
 
 

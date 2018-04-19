@@ -1,6 +1,7 @@
 package group4.swastikroy.com.heart_rate_monitor_demo.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.CompoundButton;
 import group4.swastikroy.com.heart_rate_monitor_demo.R;
 import group4.swastikroy.com.heart_rate_monitor_demo.web.WebJavascriptInterface;
 
-public class DataVisualizationActivity extends AppCompatActivity {
+public class DataVisualizationActivity extends AbstractInnerActivity {
 
     private static final String URL = "file:///android_asset/index.html";
     WebView webView;
@@ -45,16 +46,19 @@ public class DataVisualizationActivity extends AppCompatActivity {
         walkCheckBox = (CheckBox) findViewById(R.id.checkBoxWalk);
         runCheckBox = (CheckBox) findViewById(R.id.checkBoxRun);
 
-//        webView.goForward();
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebChromeClient(new WebChromeClient());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
             public void onPageFinished(WebView view, String url) {
 
-                webView.loadUrl("javascript:loadLines(" + run + "," + walk + "," + jump + ", true, true, true)");
+                webView.loadUrl("javascript:plotGraph(" + run + "," + walk + "," + jump + ", true, true, true)");
             }
         });
         webView.addJavascriptInterface(new WebJavascriptInterface(this, webView), "WebViewHandler");
@@ -76,7 +80,7 @@ public class DataVisualizationActivity extends AppCompatActivity {
                     @Override
                     public void onPageFinished(WebView view, String url) {
 
-                        webView.loadUrl("javascript:loadLines(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
+                        webView.loadUrl("javascript:plotGraph(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
                     }
                 });
                 webView.loadUrl(URL);
@@ -101,7 +105,7 @@ public class DataVisualizationActivity extends AppCompatActivity {
                     @Override
                     public void onPageFinished(WebView view, String url) {
 
-                        webView.loadUrl("javascript:loadLines(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
+                        webView.loadUrl("javascript:plotGraph(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
                     }
                 });
                 webView.loadUrl(URL);
@@ -125,7 +129,7 @@ public class DataVisualizationActivity extends AppCompatActivity {
 
                     @Override
                     public void onPageFinished(WebView view, String url) {
-                        webView.loadUrl("javascript:loadLines(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
+                        webView.loadUrl("javascript:plotGraph(" + run + "," + walk + "," + jump + "," + isRunChecked + "," + isWalkChecked + "," + isJumpChecked + ")");
                     }
                 });
                 webView.loadUrl(URL);
