@@ -269,8 +269,8 @@ public class ClassificationActivity extends AbstractInnerActivity {
 
     private void get_Accuracy( double d) {
         if(testingCompleteFlag == 0){
-            NotificationUtil.makeToast(this, "Testing is not completed");
-            return;
+            NotificationUtil.makeToast(this, "Train and Test a model First!!!");
+           return;
         }else{
             //update accuracy at the text view.
             holder.AccuracyValue.setText(String.format("%.2f", d));

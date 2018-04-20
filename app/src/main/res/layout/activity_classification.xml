@@ -201,7 +201,6 @@
         android:layout_height="match_parent"
         style="@style/HomeBtn"
         android:id="@+id/Accuracy"
-        android:text="@string/accuracy_view"
         android:gravity="center"
         android:layout_weight="1"/>
     </LinearLayout>

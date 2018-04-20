@@ -84,6 +84,9 @@ function plotGraph(run, walk, jump, runDisplay, walkDisplay, jumpDisplay) {
             allTraces.push(currentTrace);
         }
     }
-    Plotly.newPlot('container', allTraces, getLayoutConfig(), {displayModeBar: false});
+    setTimeout(function(){
+         Plotly.newPlot('container', allTraces, getLayoutConfig(), {displayModeBar: false});
+    }, 2000)
+
 }
 

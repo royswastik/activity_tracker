@@ -93,27 +93,7 @@ public class DataCollectionActivity extends AbstractInnerActivity implements Sen
         }
 
         Log.d("count : " + collection_timer, "T");
-//        long curTime = System.currentTimeMillis();
-//        if (count < 20) {
-//            Sensor mySensor = sensorEvent.sensor;
-//            if (mySensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-//                float x = sensorEvent.values[0];
-//                float y = sensorEvent.values[1];
-//                float z = sensorEvent.values[2];
-//
-//                if ((curTime - lastUpdate) > 100) {
-//                    AccelerometerDataPoint point = new AccelerometerDataPoint(x, y, z);
-//                    dataList.add(point);
-//                    count++;
-//                    lastUpdate = curTime;
-//                }
-//            }
-//        } else {
-////            holder.progressBar.setVisibility(View.GONE);
-////            holder.textMsg.setText(R.string.data_collection_complete);
-//            senSensorManager.unregisterListener(this);
-//            writeToDB(dataList, actionType);
-//        }
+
     }
 
     public void writeToDB(List<AccelerometerDataPoint> arr, String actionType) {

@@ -25,17 +25,16 @@
     <string name="coefficient_view">CoefficientView</string>
     <string name="kernel_degree_view">KernelDegreeView</string>
     <string name="cross_validation">CrossValidation</string>
-    
+
     <string-array name="svc_type">
         <item>C_SVC</item>
         <item>nu_SVC</item>
     </string-array>
     <string-array name="kernel_type">
         <item>linear</item>
-        <item>polynomia</item>
-        <item>linear</item>
+        <item>polynomial</item>
         <item>rbf</item>
-        <item>sigmoid</item>
+
     </string-array>
     <string-array name="cross_validation_select">
         <item>Yes</item>

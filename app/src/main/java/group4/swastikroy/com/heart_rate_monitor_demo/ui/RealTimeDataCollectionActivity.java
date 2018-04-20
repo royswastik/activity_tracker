@@ -84,7 +84,7 @@ public class RealTimeDataCollectionActivity extends AbstractInnerActivity implem
 
         startTracking.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
 
                 //NotificationUtil.makeToast(RealTimeDataCollectionActivity.this, "Model default Parameters Loaded");
 //                Toast.makeText(RealTimeDataCollectionActivity.this, "Loading Model", Toast.LENGTH_SHORT).show();
@@ -129,6 +129,14 @@ public class RealTimeDataCollectionActivity extends AbstractInnerActivity implem
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if(senSensorManager != null)
+             senSensorManager.unregisterListener(this);
+    }
+
+
+    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         Log.v("Sensor", "Changed");
         Sensor mySensor = sensorEvent.sensor;
@@ -165,17 +173,19 @@ public class RealTimeDataCollectionActivity extends AbstractInnerActivity implem
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
         imageView.setVisibility(View.VISIBLE);
+        if(this.isFinishing())
+            return;
         if(actionLabel.getLabel().equals(Constants.ACTIONS.RUN)) {
-            Glide.with(this).load("https://media.giphy.com/media/ICoxhc8wGbJ8k/giphy.gif").into(imageViewTarget);
+            Glide.with(getApplicationContext()).load("https://media.giphy.com/media/ICoxhc8wGbJ8k/giphy.gif").into(imageViewTarget);
         }
         else if(actionLabel.getLabel().equals(Constants.ACTIONS.WALK)) {
-            Glide.with(this).load("https://media.giphy.com/media/kA158Gup0eSpG/giphy.gif").into(imageViewTarget);
+            Glide.with(getApplicationContext()).load("https://media.giphy.com/media/kA158Gup0eSpG/giphy.gif").into(imageViewTarget);
         }
         else if(actionLabel.getLabel().equals(Constants.ACTIONS.JUMP)) {
-            Glide.with(this).load("https://media.giphy.com/media/3oEduVY5mqa2GDxgcM/giphy.gif").into(imageViewTarget);
+            Glide.with(getApplicationContext()).load("https://media.giphy.com/media/3oEduVY5mqa2GDxgcM/giphy.gif").into(imageViewTarget);
         }
         else if(actionLabel.getLabel().equals(Constants.ACTIONS.IDLE)) {
-            Glide.with(this).load("https://media.giphy.com/media/xT0xeDjlMBXbXcEIko/giphy.gif").into(imageViewTarget);
+            Glide.with(getApplicationContext()).load("https://media.giphy.com/media/xT0xeDjlMBXbXcEIko/giphy.gif").into(imageViewTarget);
         } else {
             imageView.setVisibility(View.INVISIBLE);
         }
